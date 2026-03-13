@@ -1,7 +1,6 @@
-﻿namespace AvaloniaProject.ViewModels
+﻿namespace AvaloniaProject.ViewModels;
+
+public class MainWindowViewModel : ViewModelBase
 {
-    public class MainWindowViewModel : ViewModelBase
-    {
-        public string Greeting { get; } = "Welcome to Avalonia!";
-    }
+    public ViewModelBase MainView { get; } = new MainViewModel();
 }

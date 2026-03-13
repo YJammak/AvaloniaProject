@@ -1,20 +1,67 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:AvaloniaProject.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="AvaloniaProject.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="AvaloniaProject">
+<u:ReactiveUrsaWindow
+    x:Class="AvaloniaProject.Views.MainWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:AvaloniaProject.ViewModels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:u="https://irihi.tech/ursa"
+    xmlns:rxui="http://reactiveui.net"
+    Title="AvaloniaProject"
+    Width="1000"
+    Height="600"
+    MinWidth="800"
+    MinHeight="500"
+    x:TypeArguments="vm:MainWindowViewModel"
+    x:DataType="vm:MainWindowViewModel"
+    WindowStartupLocation="CenterScreen"
+    Icon="/Assets/avalonia-logo.ico"
+    mc:Ignorable="d">
+    <u:ReactiveUrsaWindow.TitleBarContent>
+        <Grid>
+            <StackPanel
+                Margin="15,5,0,0"
+                VerticalAlignment="Center"
+                Orientation="Horizontal"
+                Spacing="6">
+                <Image
+                    Width="20"
+                    Height="20"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    IsHitTestVisible="False"
+                    Source="/Assets/avalonia-logo.ico" />
+                <TextBlock
+                    VerticalAlignment="Center"
+                    IsHitTestVisible="False"
+                    FontSize="14"
+                    TextTrimming="CharacterEllipsis"
+                    TextWrapping="NoWrap"
+                    FontWeight="{DynamicResource TextBlockTitleFontWeight}"
+                    Text="AvaloniaProject" />
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <u:ThemeToggleButton IsThreeState="True" Mode="Controller" />
+                <u:IconButton
+                    x:Name="AboutButton"
+                    Classes="Tertiary"
+                    Icon="{StaticResource SemiIconInfoCircle}"
+                    Theme="{DynamicResource BorderlessIconButton}"
+                    ToolTip.Tip="关于" />
+            </StackPanel>
+        </Grid>
+    </u:ReactiveUrsaWindow.TitleBarContent>
 
-    <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
+    <u:LoadingContainer
+        x:Name="LoadingContainer"
+        HorizontalContentAlignment="Stretch"
+        VerticalContentAlignment="Stretch">
+        <Grid Margin="10,36,10,10">
+            <rxui:ViewModelViewHost
+                x:Name="ViewModelViewHost"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" />
+        </Grid>
+    </u:LoadingContainer>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-</Window>
+</u:ReactiveUrsaWindow>

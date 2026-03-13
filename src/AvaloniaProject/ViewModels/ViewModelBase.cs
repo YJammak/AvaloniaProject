@@ -1,8 +1,12 @@
-﻿using ReactiveUI;
+using ReactiveUI;
+using ReactiveUI.Validation.Abstractions;
+using ReactiveUI.Validation.Contexts;
 
-namespace AvaloniaProject.ViewModels
+namespace AvaloniaProject.ViewModels;
+
+public abstract class ViewModelBase : ReactiveObject, IActivatableViewModel, IValidatableViewModel
 {
-    public abstract class ViewModelBase : ReactiveObject
-    {
-    }
+    public ViewModelActivator Activator { get; } = new();
+
+    public IValidationContext ValidationContext { get; } = new ValidationContext();
 }
