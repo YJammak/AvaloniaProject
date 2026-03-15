@@ -6,15 +6,25 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:u="https://irihi.tech/ursa"
     xmlns:ap="https://yjammak.net/avalonia-project"
+    Margin="10"
     x:TypeArguments="ap:HomePageViewModel"
     d:DesignWidth="800"
     d:DesignHeight="450"
+    Background="{DynamicResource BorderCardBackground}"
     mc:Ignorable="d">
-    <Grid>
+    <StackPanel Spacing="10">
         <TextBlock
-            HorizontalAlignment="Center"
-            FontSize="20"
-            FontWeight="Bold"
+            Theme="{StaticResource TitleTextBlock}"
+            Classes="H3"
             Text="Welcome to AvaloniaProject!" />
-    </Grid>
+        <TextBlock
+            TextWrapping="Wrap"
+            Theme="{StaticResource TitleTextBlock}"
+            Classes="H6"
+            Text="This is a sample Avalonia application that utilizes several frameworks and libraries, and can serve as a reference when creating new projects." />
+        <TextBlock Text="- Used the ReactiveUI MVVM framework." />
+        <TextBlock Text="- Used the Semi.Avalonia and Ursa.Avalonia themes." />
+        <TextBlock Text="- Used the Icons.Avalonia's Material Design icons." />
+        <TextBlock Text="- Published using AOT." />
+    </StackPanel>
 </u:ReactiveUrsaView>

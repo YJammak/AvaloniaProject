@@ -38,8 +38,8 @@
                                 IsVisible="{Binding $parent[u:NavMenuItem].IsHighlighted, Mode=TwoWay}"
                                 Value="{Binding Icon}" />
                             <i:Icon
-                                Width="18"
-                                Height="18"
+                                Width="20"
+                                Height="20"
                                 VerticalAlignment="Center"
                                 FontSize="{Binding IconSize}"
                                 IsVisible="{Binding $parent[u:NavMenuItem].IsHighlighted, Mode=TwoWay, Converter={x:Static BoolConverters.Not}}"
@@ -65,17 +65,16 @@
                 </u:NavMenu.HeaderTemplate>
             </u:NavMenu>
         </Border>
-        <rxui:ViewModelViewHost
-            x:Name="ViewModelViewHost"
+        <Border
             Grid.Column="1"
             Margin="10,0,0,0"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch">
-            <rxui:ViewModelViewHost.DefaultContent>
-                <Border
-                    Margin="0"
-                    Padding="2"
-                    Theme="{DynamicResource CardBorder}">
+            Padding="2"
+            Theme="{DynamicResource CardBorder}">
+            <rxui:ViewModelViewHost
+                x:Name="ViewModelViewHost"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+                <rxui:ViewModelViewHost.DefaultContent>
                     <StackPanel
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
@@ -93,8 +92,8 @@
                             Text="Select the function page on the left."
                             IsEnabled="False" />
                     </StackPanel>
-                </Border>
-            </rxui:ViewModelViewHost.DefaultContent>
-        </rxui:ViewModelViewHost>
+                </rxui:ViewModelViewHost.DefaultContent>
+            </rxui:ViewModelViewHost>
+        </Border>
     </Grid>
 </u:ReactiveUrsaView>
