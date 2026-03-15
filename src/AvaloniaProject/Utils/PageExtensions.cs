@@ -8,14 +8,14 @@ public static class PageExtensions
 {
     public static AppBuilder UsePages(this AppBuilder builder)
     {
-        Register<PageViewModel, HomePageViewModel>();
+        Register<HomePageViewModel>();
+        Register<BindingPageViewModel>();
         return builder;
     }
 
-    private static void Register<TService, TImplementation>()
-        where TService : class
-        where TImplementation : class, TService, new()
+    private static void Register<T>()
+        where T : PageViewModel, new()
     {
-        Locator.CurrentMutable.Register<TService, TImplementation>();
+        Locator.CurrentMutable.Register<PageViewModel, T>();
     }
 }

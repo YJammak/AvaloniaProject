@@ -1,0 +1,28 @@
+﻿<u:ReactiveUrsaView
+    x:Class="AvaloniaProject.Views.Pages.BindingPageView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:u="https://irihi.tech/ursa"
+    xmlns:ap="https://yjammak.net/avalonia-project"
+    Margin="10"
+    x:TypeArguments="ap:BindingPageViewModel"
+    d:DesignWidth="800"
+    d:DesignHeight="450"
+    Background="{DynamicResource BorderCardBackground}"
+    mc:Ignorable="d">
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <StackPanel Spacing="10">
+            <TextBlock
+                Theme="{StaticResource TitleTextBlock}"
+                Classes="H4"
+                Text="ReactiveUI Binding" />
+            <TextBlock
+                TextWrapping="Wrap"
+                Theme="{StaticResource TitleTextBlock}"
+                Classes="H6"
+                Text="This section introduces the usage of ReactiveUI's Binding in Avalonia." />
+        </StackPanel>
+    </ScrollViewer>
+</u:ReactiveUrsaView>

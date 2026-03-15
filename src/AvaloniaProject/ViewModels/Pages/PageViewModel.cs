@@ -16,7 +16,7 @@ public abstract partial class PageViewModel : ViewModelBase
     [Reactive]
     public partial int Index { get; private set; }
 
-    protected PageViewModel(string name, string icon, int index, int iconSize = 14)
+    protected PageViewModel(string name, string icon, int index, int iconSize = 18)
     {
         Name = name;
         Icon = icon;
