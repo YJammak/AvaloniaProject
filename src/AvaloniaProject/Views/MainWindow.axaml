@@ -15,7 +15,7 @@
     x:TypeArguments="vm:MainWindowViewModel"
     x:DataType="vm:MainWindowViewModel"
     WindowStartupLocation="CenterScreen"
-    Icon="/Assets/avalonia-logo.ico"
+    Icon="/Assets/logo.ico"
     mc:Ignorable="d">
     <u:ReactiveUrsaWindow.TitleBarContent>
         <Grid>
@@ -30,7 +30,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     IsHitTestVisible="False"
-                    Source="/Assets/avalonia-logo.ico" />
+                    Source="/Assets/logo.ico" />
                 <TextBlock
                     VerticalAlignment="Center"
                     IsHitTestVisible="False"

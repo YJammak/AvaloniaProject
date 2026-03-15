@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<linker>
+    <assembly fullname="Avalonia.Controls.DataGrid"/>
+    <assembly fullname="ReactiveUI.Avalonia"/>
+    <assembly fullname="AvaloniaProject"/>
+    <assembly fullname="MicroCom.Runtime"/>
+    <assembly fullname="ReactiveUI"/>
+    <assembly fullname="System.Linq.Expressions"/>
+    <assembly fullname="Semi.Avalonia"/>
+    <assembly fullname="Semi.Avalonia.AvaloniaEdit"/>
+    <assembly fullname="Semi.Avalonia.DataGrid"/>
+    <assembly fullname="Ursa"/>
+    <assembly fullname="Ursa.Themes.Semi"/>
+</linker>
