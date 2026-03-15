@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using Avalonia;
+using AvaloniaProject.Utils;
 using NLog;
 using NLog.Targets;
 using Projektanker.Icons.Avalonia;
@@ -17,8 +18,7 @@ internal sealed class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        BuildAvaloniaApp()
-            .StartWithClassicDesktopLifetime(args);
+        BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
     }
 
     public static AppBuilder BuildAvaloniaApp()
@@ -35,7 +35,8 @@ internal sealed class Program
             .WithInterFont()
             .LogToTrace()
             .UseReactiveUI(_ => { })
-            .RegisterReactiveUIViewsFromEntryAssembly();
+            .RegisterReactiveUIViewsFromEntryAssembly()
+            .UsePages();
     }
 
     private static void NLogConfigure()

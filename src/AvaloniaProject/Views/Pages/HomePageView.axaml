@@ -1,0 +1,20 @@
+﻿<u:ReactiveUrsaView
+    x:Class="AvaloniaProject.Views.Pages.HomePageView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:u="https://irihi.tech/ursa"
+    xmlns:ap="https://yjammak.net/avalonia-project"
+    x:TypeArguments="ap:HomePageViewModel"
+    d:DesignWidth="800"
+    d:DesignHeight="450"
+    mc:Ignorable="d">
+    <Grid>
+        <TextBlock
+            HorizontalAlignment="Center"
+            FontSize="20"
+            FontWeight="Bold"
+            Text="Welcome to AvaloniaProject!" />
+    </Grid>
+</u:ReactiveUrsaView>

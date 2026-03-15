@@ -4,11 +4,97 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:u="using:Ursa.ReactiveUIExtension"
-    xmlns:vm="using:AvaloniaProject.ViewModels"
-    x:TypeArguments="vm:MainViewModel"
+    xmlns:u="https://irihi.tech/ursa"
+    xmlns:i="https://github.com/projektanker/icons.avalonia"
+    xmlns:ap="https://yjammak.net/avalonia-project"
+    xmlns:rxui="http://reactiveui.net"
+    x:TypeArguments="ap:MainViewModel"
     d:DesignWidth="800"
     d:DesignHeight="450"
     mc:Ignorable="d">
-    Welcome to Avalonia!
+    <Grid Margin="0,0,0,0" ColumnDefinitions="Auto,*">
+        <Border
+            Grid.Column="0"
+            Margin="0"
+            Padding="2"
+            ClipToBounds="True"
+            Theme="{DynamicResource CardBorder}">
+            <u:NavMenu
+                x:Name="NavMenu"
+                x:DataType="ap:PageViewModel"
+                ExpandWidth="150"
+                HeaderBinding="{Binding Name}"
+                IconBinding="{Binding}"
+                FontSize="15">
+                <u:NavMenu.IconTemplate>
+                    <DataTemplate x:DataType="ap:PageViewModel">
+                        <Grid>
+                            <i:Icon
+                                Width="20"
+                                Height="20"
+                                VerticalAlignment="Center"
+                                FontSize="{Binding IconSize}"
+                                Foreground="{DynamicResource SemiColorPrimary}"
+                                IsVisible="{Binding $parent[u:NavMenuItem].IsHighlighted, Mode=TwoWay}"
+                                Value="{Binding Icon}" />
+                            <i:Icon
+                                Width="18"
+                                Height="18"
+                                VerticalAlignment="Center"
+                                FontSize="{Binding IconSize}"
+                                IsVisible="{Binding $parent[u:NavMenuItem].IsHighlighted, Mode=TwoWay, Converter={x:Static BoolConverters.Not}}"
+                                Value="{Binding Icon}" />
+                        </Grid>
+                    </DataTemplate>
+                </u:NavMenu.IconTemplate>
+                <u:NavMenu.HeaderTemplate>
+                    <DataTemplate x:DataType="{x:Type x:String}">
+                        <Grid>
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontWeight="Bold"
+                                Foreground="{DynamicResource SemiColorPrimary}"
+                                IsVisible="{Binding $parent[u:NavMenuItem].IsHighlighted, Mode=TwoWay}"
+                                Text="{Binding}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                IsVisible="{Binding $parent[u:NavMenuItem].IsHighlighted, Mode=TwoWay, Converter={x:Static BoolConverters.Not}}"
+                                Text="{Binding}" />
+                        </Grid>
+                    </DataTemplate>
+                </u:NavMenu.HeaderTemplate>
+            </u:NavMenu>
+        </Border>
+        <rxui:ViewModelViewHost
+            x:Name="ViewModelViewHost"
+            Grid.Column="1"
+            Margin="10,0,0,0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch">
+            <rxui:ViewModelViewHost.DefaultContent>
+                <Border
+                    Margin="0"
+                    Padding="2"
+                    Theme="{DynamicResource CardBorder}">
+                    <StackPanel
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Spacing="10">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Text="Avalonia Project"
+                            FontSize="25"
+                            IsEnabled="False" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            Text="Select the function page on the left."
+                            IsEnabled="False" />
+                    </StackPanel>
+                </Border>
+            </rxui:ViewModelViewHost.DefaultContent>
+        </rxui:ViewModelViewHost>
+    </Grid>
 </u:ReactiveUrsaView>
