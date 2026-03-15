@@ -10,11 +10,11 @@
         <ap:ViewLocator />
     </Application.DataTemplates>
     <Application.Styles>
-        <semi:SemiTheme Locale="zh-CN" />
+        <semi:SemiTheme Locale="en-us" />
         <semi:SemiPopupAnimations />
         <semi:DataGridSemiTheme />
         <semi:AvaloniaEditSemiTheme />
-        <u-semi:SemiTheme Locale="zh-CN" />
+        <u-semi:SemiTheme Locale="en-us" />
         <Style Selector="ComboBox">
             <Setter Property="Cursor" Value="Hand" />
             <Setter Property="ItemTemplate">
