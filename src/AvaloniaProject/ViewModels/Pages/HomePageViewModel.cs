@@ -3,5 +3,5 @@
 public class HomePageViewModel : PageViewModel
 {
     public HomePageViewModel() :
-        base("Home", "mdi-home-outline", 0) { }
+        base("Page_Home", "mdi-home-outline", 0) { }
 }

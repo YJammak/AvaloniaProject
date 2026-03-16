@@ -82,14 +82,14 @@
                         <TextBlock
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            Text="Avalonia Project"
+                            Text="{Binding [MainView_Default_Title], Source={x:Static ap:LocalizationSource.Instance}}"
                             FontSize="25"
                             IsEnabled="False" />
                         <TextBlock
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             FontSize="16"
-                            Text="Select the function page on the left."
+                            Text="{Binding [MainView_Default_Description], Source={x:Static ap:LocalizationSource.Instance}}"
                             IsEnabled="False" />
                     </StackPanel>
                 </rxui:ViewModelViewHost.DefaultContent>

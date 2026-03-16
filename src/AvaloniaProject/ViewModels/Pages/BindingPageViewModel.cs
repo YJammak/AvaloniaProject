@@ -2,5 +2,5 @@
 
 public class BindingPageViewModel : PageViewModel
 {
-    public BindingPageViewModel() : base("Binding", "mdi-link-variant", 1, 16) { }
+    public BindingPageViewModel() : base("Page_Binding", "mdi-link-variant", 1, 16) { }
 }

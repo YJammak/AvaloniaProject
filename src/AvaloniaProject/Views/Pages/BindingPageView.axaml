@@ -17,12 +17,12 @@
             <TextBlock
                 Theme="{StaticResource TitleTextBlock}"
                 Classes="H4"
-                Text="ReactiveUI Binding" />
+                Text="{Binding [BindingPage_Title], Source={x:Static ap:LocalizationSource.Instance}}" />
             <TextBlock
                 TextWrapping="Wrap"
                 Theme="{StaticResource TitleTextBlock}"
                 Classes="H6"
-                Text="This section introduces the usage of ReactiveUI's Binding in Avalonia." />
+                Text="{Binding [BindingPage_Description], Source={x:Static ap:LocalizationSource.Instance}}" />
         </StackPanel>
     </ScrollViewer>
 </u:ReactiveUrsaView>

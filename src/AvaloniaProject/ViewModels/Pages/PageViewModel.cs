@@ -1,4 +1,5 @@
-﻿using ReactiveUI.SourceGenerators;
+﻿using AvaloniaProject.Services;
+using ReactiveUI.SourceGenerators;
 
 namespace AvaloniaProject.ViewModels.Pages;
 
@@ -16,11 +17,13 @@ public abstract partial class PageViewModel : ViewModelBase
     [Reactive]
     public partial int Index { get; private set; }
 
-    protected PageViewModel(string name, string icon, int index, int iconSize = 18)
+    protected PageViewModel(string nameKey, string icon, int index, int iconSize = 18)
     {
-        Name = name;
+        Name = LocalizationService.Instance[nameKey];
         Icon = icon;
         Index = index;
         IconSize = iconSize;
+
+        LocalizationService.Instance.CultureChanged += (_, _) => { Name = LocalizationService.Instance[nameKey]; };
     }
 }

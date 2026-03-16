@@ -16,15 +16,15 @@
         <TextBlock
             Theme="{StaticResource TitleTextBlock}"
             Classes="H3"
-            Text="Welcome to AvaloniaProject!" />
+            Text="{Binding [HomePage_Title], Source={x:Static ap:LocalizationSource.Instance}}" />
         <TextBlock
             TextWrapping="Wrap"
             Theme="{StaticResource TitleTextBlock}"
             Classes="H6"
-            Text="This is a sample Avalonia application that utilizes several frameworks and libraries, and can serve as a reference when creating new projects." />
-        <TextBlock Text="- Used the ReactiveUI MVVM framework." />
-        <TextBlock Text="- Used the Semi.Avalonia and Ursa.Avalonia themes." />
-        <TextBlock Text="- Used the Icons.Avalonia's Material Design icons." />
-        <TextBlock Text="- Published using AOT." />
+            Text="{Binding [HomePage_Description], Source={x:Static ap:LocalizationSource.Instance}}" />
+        <TextBlock Text="{Binding [HomePage_Feature_1], Source={x:Static ap:LocalizationSource.Instance}}" />
+        <TextBlock Text="{Binding [HomePage_Feature_2], Source={x:Static ap:LocalizationSource.Instance}}" />
+        <TextBlock Text="{Binding [HomePage_Feature_3], Source={x:Static ap:LocalizationSource.Instance}}" />
+        <TextBlock Text="{Binding [HomePage_Feature_4], Source={x:Static ap:LocalizationSource.Instance}}" />
     </StackPanel>
 </u:ReactiveUrsaView>

@@ -9,6 +9,7 @@ using Avalonia.Metadata;
 [assembly: XmlnsDefinition("https://yjammak.net/avalonia-project", "AvaloniaProject")]
 [assembly: XmlnsDefinition("https://yjammak.net/avalonia-project", "AvaloniaProject.Converters")]
 [assembly: XmlnsDefinition("https://yjammak.net/avalonia-project", "AvaloniaProject.Models")]
+[assembly: XmlnsDefinition("https://yjammak.net/avalonia-project", "AvaloniaProject.Services")]
 [assembly: XmlnsDefinition("https://yjammak.net/avalonia-project", "AvaloniaProject.Styles")]
 [assembly: XmlnsDefinition("https://yjammak.net/avalonia-project", "AvaloniaProject.ViewModels")]
 [assembly: XmlnsDefinition("https://yjammak.net/avalonia-project", "AvaloniaProject.ViewModels.Pages")]
