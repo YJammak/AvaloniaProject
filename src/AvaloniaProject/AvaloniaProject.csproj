@@ -25,7 +25,6 @@
     <ItemGroup>
         <Folder Include="Models\"/>
         <AvaloniaResource Include="Assets\**"/>
-        <Folder Include="Services\"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -58,4 +57,36 @@
         </PackageReference>
         <PackageReference Include="Splat.NLog" Version="19.3.1"/>
     </ItemGroup>
+
+    <Target Name="RelocateSatelliteAssembliesAfterBuild" AfterTargets="Build">
+        <ItemGroup>
+            <SatelliteAssembliesAfterBuild Include="$(TargetDir)**\$(AssemblyName).resources.dll"
+                                           Exclude="$(TargetDir)locales\**\*"/>
+        </ItemGroup>
+        <MakeDir Directories="@(SatelliteAssembliesAfterBuild->'$(TargetDir)locales\%(RecursiveDir)')"
+                 Condition="'@(SatelliteAssembliesAfterBuild)' != ''"/>
+        <Copy SourceFiles="@(SatelliteAssembliesAfterBuild)"
+              DestinationFiles="@(SatelliteAssembliesAfterBuild->'$(TargetDir)locales\%(RecursiveDir)%(Filename)%(Extension)')"
+              SkipUnchangedFiles="true"
+              Condition="'@(SatelliteAssembliesAfterBuild)' != ''"/>
+        <Delete Files="@(SatelliteAssembliesAfterBuild)" Condition="'@(SatelliteAssembliesAfterBuild)' != ''"/>
+        <RemoveDir Directories="@(SatelliteAssembliesAfterBuild->'%(RootDir)%(Directory)')"
+                   Condition="'@(SatelliteAssembliesAfterBuild)' != ''"/>
+    </Target>
+
+    <Target Name="RelocateSatelliteAssembliesAfterPublish" AfterTargets="Publish">
+        <ItemGroup>
+            <SatelliteAssembliesAfterPublish Include="$(PublishDir)**\$(AssemblyName).resources.dll"
+                                             Exclude="$(PublishDir)locales\**\*"/>
+        </ItemGroup>
+        <MakeDir Directories="@(SatelliteAssembliesAfterPublish->'$(PublishDir)locales\%(RecursiveDir)')"
+                 Condition="'@(SatelliteAssembliesAfterPublish)' != ''"/>
+        <Copy SourceFiles="@(SatelliteAssembliesAfterPublish)"
+              DestinationFiles="@(SatelliteAssembliesAfterPublish->'$(PublishDir)locales\%(RecursiveDir)%(Filename)%(Extension)')"
+              SkipUnchangedFiles="true"
+              Condition="'@(SatelliteAssembliesAfterPublish)' != ''"/>
+        <Delete Files="@(SatelliteAssembliesAfterPublish)" Condition="'@(SatelliteAssembliesAfterPublish)' != ''"/>
+        <RemoveDir Directories="@(SatelliteAssembliesAfterPublish->'%(RootDir)%(Directory)')"
+                   Condition="'@(SatelliteAssembliesAfterPublish)' != ''"/>
+    </Target>
 </Project>

@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using Avalonia;
+using AvaloniaProject.Services;
 using AvaloniaProject.Utils;
 using NLog;
 using NLog.Targets;
@@ -18,6 +19,7 @@ internal sealed class Program
     [STAThread]
     public static void Main(string[] args)
     {
+        SatelliteAssemblyResolver.Register();
         BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
     }
 
