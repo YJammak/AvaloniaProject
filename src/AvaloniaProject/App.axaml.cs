@@ -14,7 +14,7 @@ public class App : Application
 {
     public override void Initialize()
     {
-        LocalizationService.Instance.SetCulture("en-US");
+        LocalizationService.Instance.SetCulture(LocalizationService.Instance.ResolveStartupCulture());
         AvaloniaXamlLoader.Load(this);
 
         ApplyThemeLocale(LocalizationSource.Instance.ThemeCulture);
