@@ -1,4 +1,8 @@
-﻿using System.Reactive.Disposables;
+﻿using System;
+using System.Diagnostics;
+using System.Reactive.Disposables;
+using System.Reactive.Disposables.Fluent;
+using System.Reactive.Linq;
 using AvaloniaProject.Services;
 using AvaloniaProject.ViewModels.Pages;
 using LiveMarkdown.Avalonia;
@@ -23,7 +27,27 @@ public partial class HomePageView : ReactiveUrsaView<HomePageViewModel>
         this.WhenActivated(OnWhenActivated);
     }
 
-    private void OnWhenActivated(CompositeDisposable disposable) { }
+    private void OnWhenActivated(CompositeDisposable disposable)
+    {
+        Observable.FromEventPattern<LinkClickedEventArgs>(
+                handler => MarkdownRenderer.LinkClick += handler,
+                handler => MarkdownRenderer.LinkClick -= handler)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
+            .Do(args =>
+            {
+                var uri = args.EventArgs.HRef;
+                if (uri == null)
+                    return;
+                if (uri.Scheme is "http" or "https")
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = uri.ToString(),
+                        UseShellExecute = true
+                    });
+            })
+            .Subscribe()
+            .DisposeWith(disposable);
+    }
 
     private void UpdateContent()
     {
