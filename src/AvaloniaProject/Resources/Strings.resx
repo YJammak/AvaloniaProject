@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root"
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"
+                id="root"
                 xmlns="">
         <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
         <xsd:element name="root" msdata:IsDataSet="true">
@@ -81,24 +82,6 @@
     <data name="MainView_Default_Description" xml:space="preserve">
     <value>Select the function page on the left.</value>
   </data>
-    <data name="HomePage_Title" xml:space="preserve">
-    <value>Welcome to AvaloniaProject!</value>
-  </data>
-    <data name="HomePage_Description" xml:space="preserve">
-    <value>This is a sample Avalonia application that utilizes several frameworks and libraries, and can serve as a reference when creating new projects.</value>
-  </data>
-    <data name="HomePage_Feature_1" xml:space="preserve">
-    <value>- Used the ReactiveUI MVVM framework.</value>
-  </data>
-    <data name="HomePage_Feature_2" xml:space="preserve">
-    <value>- Used the Semi.Avalonia and Ursa.Avalonia themes.</value>
-  </data>
-    <data name="HomePage_Feature_3" xml:space="preserve">
-    <value>- Used the Icons.Avalonia's Material Design icons.</value>
-  </data>
-    <data name="HomePage_Feature_4" xml:space="preserve">
-    <value>- Published using AOT.</value>
-  </data>
     <data name="BindingPage_Title" xml:space="preserve">
     <value>ReactiveUI Binding</value>
   </data>
@@ -111,5 +94,14 @@
     <data name="Page_Binding" xml:space="preserve">
     <value>Binding</value>
   </data>
+    <data name="HomePage_Content" xml:space="preserve">
+        <value># Welcome to AvaloniaProject!
+#### This is a sample Avalonia application that utilizes several frameworks and libraries, and can serve as a reference when creating new projects.
+
+- Used the [ReactiveUI](https://github.com/reactiveui/ReactiveUI) MVVM framework.
+- Used the [Semi.Avalonia](https://github.com/irihitech/Semi.Avalonia) and [Ursa.Avalonia](https://github.com/irihitech/Ursa.Avalonia) themes.
+- Used the [Icons.Avalonia](https://github.com/Projektanker/Icons.Avalonia)'s Material Design icons.
+- Published using AOT.</value>
+    </data>
 </root>
 

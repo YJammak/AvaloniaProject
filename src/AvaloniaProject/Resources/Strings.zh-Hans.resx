@@ -112,5 +112,14 @@
     <data name="Page_Binding" xml:space="preserve">
     <value>绑定</value>
   </data>
+    <data name="HomePage_Content" xml:space="preserve">
+        <value># 欢迎使用 AvaloniaProject！
+#### 这是一个示例 Avalonia 应用，集成了多个框架与库，可作为新项目创建时的参考。
+
+- 使用了 [ReactiveUI](https://github.com/reactiveui/ReactiveUI) MVVM 框架。
+- 使用了 [Semi.Avalonia](https://github.com/irihitech/Semi.Avalonia) 与 [Ursa.Avalonia](https://github.com/irihitech/Ursa.Avalonia) 主题。
+- 使用了 [Icons.Avalonia](https://github.com/Projektanker/Icons.Avalonia) 的 Material Design 图标。
+- 使用 AOT 发布。</value>
+    </data>
 </root>
 

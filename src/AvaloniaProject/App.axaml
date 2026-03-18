@@ -5,6 +5,7 @@
     xmlns:semi="https://irihi.tech/semi"
     xmlns:u-semi="https://irihi.tech/ursa/themes/semi"
     xmlns:ap="https://yjammak.net/avalonia-project"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
     RequestedThemeVariant="Default">
     <Application.DataTemplates>
         <ap:ViewLocator />
@@ -23,5 +24,14 @@
                 </DataTemplate>
             </Setter>
         </Style>
+        <StyleInclude Source="avares://LiveMarkdown.Avalonia/Styles.axaml" />
     </Application.Styles>
+    <Application.Resources>
+        <ResourceDictionary>
+            <system:Double x:Key="FontSizeM">14</system:Double>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://LiveMarkdown.Avalonia/Defaults.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>
