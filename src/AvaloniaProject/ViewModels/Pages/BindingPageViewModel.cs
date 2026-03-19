@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Reactive;
 using System.Reactive.Disposables;
+using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using AvaloniaProject.Services;
 using ReactiveUI;
@@ -22,18 +22,10 @@ public partial class BindingPageViewModel : PageViewModel
     [Reactive]
     public partial string StatusText { get; private set; }
 
-    public ReactiveCommand<Unit, Unit> IncrementCommand { get; }
-    public ReactiveCommand<Unit, Unit> DecrementCommand { get; }
-    public ReactiveCommand<Unit, Unit> ResetCommand { get; }
-
     public BindingPageViewModel() : base("Page_Binding", "mdi-link-variant", 1, 16)
     {
         InputText = string.Empty;
         StatusText = string.Empty;
-
-        IncrementCommand = ReactiveCommand.Create(() => { Counter++; });
-        DecrementCommand = ReactiveCommand.Create(() => { Counter--; });
-        ResetCommand = ReactiveCommand.Create(() => { Counter = 0; });
     }
 
     protected override void OnWhenActivated(CompositeDisposable disposable)
@@ -41,14 +33,17 @@ public partial class BindingPageViewModel : PageViewModel
         base.OnWhenActivated(disposable);
         UpdateStatusText();
 
-        disposable.Add(
-            this.WhenAnyValue(x => x.IsToggled)
-                .Do(_ => UpdateStatusText())
-                .Subscribe());
+        this.WhenAnyValue(x => x.IsToggled)
+            .Do(_ => UpdateStatusText())
+            .Subscribe()
+            .DisposeWith(disposable);
 
-        EventHandler onCultureChanged = (_, _) => UpdateStatusText();
-        LocalizationService.Instance.CultureChanged += onCultureChanged;
-        disposable.Add(Disposable.Create(() => LocalizationService.Instance.CultureChanged -= onCultureChanged));
+        Observable.FromEventPattern(
+                handler => LocalizationService.Instance.CultureChanged += handler,
+                handler => LocalizationService.Instance.CultureChanged -= handler)
+            .Do(_ => UpdateStatusText())
+            .Subscribe()
+            .DisposeWith(disposable);
     }
 
     private void UpdateStatusText()
@@ -57,4 +52,13 @@ public partial class BindingPageViewModel : PageViewModel
             ? LocalizationService.Instance["BindingPage_Status_Enabled"]
             : LocalizationService.Instance["BindingPage_Status_Disabled"];
     }
+
+    [ReactiveCommand]
+    private void Increment() => Counter++;
+
+    [ReactiveCommand]
+    private void Decrement() => Counter--;
+
+    [ReactiveCommand]
+    private void Reset() => Counter = 0;
 }
