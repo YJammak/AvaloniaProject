@@ -88,6 +88,45 @@
     <data name="BindingPage_Description" xml:space="preserve">
     <value>This section introduces the usage of ReactiveUI's Binding in Avalonia.</value>
   </data>
+    <data name="BindingPage_TwoWayBind_Title" xml:space="preserve">
+        <value>Two-Way Binding (Bind)</value>
+    </data>
+    <data name="BindingPage_TwoWayBind_Description" xml:space="preserve">
+        <value>Data flows bidirectionally between ViewModel and View. Type in the input box to see the output update in real time.</value>
+    </data>
+    <data name="BindingPage_Label_Input" xml:space="preserve">
+        <value>Input:</value>
+    </data>
+    <data name="BindingPage_Label_Output" xml:space="preserve">
+        <value>Output:</value>
+    </data>
+    <data name="BindingPage_CommandBind_Title" xml:space="preserve">
+        <value>Command Binding (BindCommand)</value>
+    </data>
+    <data name="BindingPage_CommandBind_Description" xml:space="preserve">
+        <value>Buttons are bound to ReactiveCommands in the ViewModel. Click the buttons to increment, decrement, or reset the counter.</value>
+    </data>
+    <data name="BindingPage_Button_Reset" xml:space="preserve">
+        <value>Reset</value>
+    </data>
+    <data name="BindingPage_BoolBind_Title" xml:space="preserve">
+        <value>Boolean Binding (Bind / OneWayBind)</value>
+    </data>
+    <data name="BindingPage_BoolBind_Description" xml:space="preserve">
+        <value>A boolean property is synchronized between CheckBox and ViewModel. The status label reflects the current state via OneWayBind.</value>
+    </data>
+    <data name="BindingPage_CheckBox_IsToggled" xml:space="preserve">
+        <value>Is Toggled</value>
+    </data>
+    <data name="BindingPage_Label_Status" xml:space="preserve">
+        <value>Status:</value>
+    </data>
+    <data name="BindingPage_Status_Enabled" xml:space="preserve">
+        <value>Enabled</value>
+    </data>
+    <data name="BindingPage_Status_Disabled" xml:space="preserve">
+        <value>Disabled</value>
+    </data>
     <data name="Page_Home" xml:space="preserve">
     <value>Home</value>
   </data>

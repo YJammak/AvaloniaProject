@@ -91,6 +91,45 @@
     <data name="BindingPage_Description" xml:space="preserve">
     <value>本节介绍 ReactiveUI 在 Avalonia 中的 Binding 用法。</value>
   </data>
+    <data name="BindingPage_TwoWayBind_Title" xml:space="preserve">
+        <value>双向绑定 (Bind)</value>
+    </data>
+    <data name="BindingPage_TwoWayBind_Description" xml:space="preserve">
+        <value>数据在 ViewModel 和 View 之间双向流动。在输入框中输入内容，可实时看到输出更新。</value>
+    </data>
+    <data name="BindingPage_Label_Input" xml:space="preserve">
+        <value>输入：</value>
+    </data>
+    <data name="BindingPage_Label_Output" xml:space="preserve">
+        <value>输出：</value>
+    </data>
+    <data name="BindingPage_CommandBind_Title" xml:space="preserve">
+        <value>命令绑定 (BindCommand)</value>
+    </data>
+    <data name="BindingPage_CommandBind_Description" xml:space="preserve">
+        <value>按钮与 ViewModel 中的 ReactiveCommand 绑定。点击按钮可以增加、减少或重置计数器。</value>
+    </data>
+    <data name="BindingPage_Button_Reset" xml:space="preserve">
+        <value>重置</value>
+    </data>
+    <data name="BindingPage_BoolBind_Title" xml:space="preserve">
+        <value>布尔绑定 (Bind / OneWayBind)</value>
+    </data>
+    <data name="BindingPage_BoolBind_Description" xml:space="preserve">
+        <value>布尔属性在 CheckBox 与 ViewModel 之间同步。状态标签通过 OneWayBind 反映当前状态。</value>
+    </data>
+    <data name="BindingPage_CheckBox_IsToggled" xml:space="preserve">
+        <value>已切换</value>
+    </data>
+    <data name="BindingPage_Label_Status" xml:space="preserve">
+        <value>状态：</value>
+    </data>
+    <data name="BindingPage_Status_Enabled" xml:space="preserve">
+        <value>已启用</value>
+    </data>
+    <data name="BindingPage_Status_Disabled" xml:space="preserve">
+        <value>已禁用</value>
+    </data>
     <data name="Page_Home" xml:space="preserve">
     <value>主页</value>
   </data>
