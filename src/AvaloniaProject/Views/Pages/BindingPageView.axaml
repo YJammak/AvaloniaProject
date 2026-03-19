@@ -6,106 +6,109 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:u="https://irihi.tech/ursa"
     xmlns:ap="https://yjammak.net/avalonia-project"
-    Margin="10"
+    Margin="10,10,0,10"
     x:TypeArguments="ap:BindingPageViewModel"
     d:DesignWidth="800"
     d:DesignHeight="600"
     Background="{DynamicResource BorderCardBackground}"
     mc:Ignorable="d">
-    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-        <StackPanel Spacing="12" Margin="0,0,0,10">
+    <ScrollViewer
+        Classes.InsetContent="True"
+        HorizontalScrollBarVisibility="Disabled"
+        VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="0,0,10,10" Spacing="12">
             <TextBlock
                 Theme="{StaticResource TitleTextBlock}"
                 Classes="H4"
                 Text="{Binding [BindingPage_Title], Source={x:Static ap:LocalizationSource.Instance}}" />
-            <TextBlock
-                TextWrapping="Wrap"
-                Text="{Binding [BindingPage_Description], Source={x:Static ap:LocalizationSource.Instance}}" />
+            <TextBlock TextWrapping="Wrap" Text="{Binding [BindingPage_Description], Source={x:Static ap:LocalizationSource.Instance}}" />
 
-            <!-- Section 1: Two-Way Binding -->
+            <!--  Section 1: Two-Way Binding  -->
             <Border
+                Padding="12"
                 BorderThickness="1"
                 BorderBrush="{DynamicResource SemiColorPrimary}"
-                CornerRadius="6"
-                Padding="12">
+                CornerRadius="6">
                 <StackPanel Spacing="8">
                     <TextBlock
                         Theme="{StaticResource TitleTextBlock}"
                         Classes="H6"
                         Text="{Binding [BindingPage_TwoWayBind_Title], Source={x:Static ap:LocalizationSource.Instance}}" />
-                    <TextBlock
-                        TextWrapping="Wrap"
-                        Text="{Binding [BindingPage_TwoWayBind_Description], Source={x:Static ap:LocalizationSource.Instance}}" />
-                    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,4,0,0">
+                    <TextBlock TextWrapping="Wrap" Text="{Binding [BindingPage_TwoWayBind_Description], Source={x:Static ap:LocalizationSource.Instance}}" />
+                    <StackPanel
+                        Margin="0,4,0,0"
+                        Orientation="Horizontal"
+                        Spacing="8">
                         <TextBlock
-                            Text="{Binding [BindingPage_Label_Input], Source={x:Static ap:LocalizationSource.Instance}}"
+                            Width="70"
                             VerticalAlignment="Center"
-                            Width="70" />
+                            Text="{Binding [BindingPage_Label_Input], Source={x:Static ap:LocalizationSource.Instance}}" />
                         <TextBox x:Name="InputTextBox" Width="220" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <TextBlock
-                            Text="{Binding [BindingPage_Label_Output], Source={x:Static ap:LocalizationSource.Instance}}"
+                            Width="70"
                             VerticalAlignment="Center"
-                            Width="70" />
+                            Text="{Binding [BindingPage_Label_Output], Source={x:Static ap:LocalizationSource.Instance}}" />
                         <TextBlock x:Name="InputDisplayText" VerticalAlignment="Center" />
                     </StackPanel>
                 </StackPanel>
             </Border>
 
-            <!-- Section 2: Command Binding -->
+            <!--  Section 2: Command Binding  -->
             <Border
+                Padding="12"
                 BorderThickness="1"
                 BorderBrush="{DynamicResource SemiColorPrimary}"
-                CornerRadius="6"
-                Padding="12">
+                CornerRadius="6">
                 <StackPanel Spacing="8">
                     <TextBlock
                         Theme="{StaticResource TitleTextBlock}"
                         Classes="H6"
                         Text="{Binding [BindingPage_CommandBind_Title], Source={x:Static ap:LocalizationSource.Instance}}" />
-                    <TextBlock
-                        TextWrapping="Wrap"
-                        Text="{Binding [BindingPage_CommandBind_Description], Source={x:Static ap:LocalizationSource.Instance}}" />
-                    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,4,0,0">
-                        <Button x:Name="DecrementButton" Content=" - " Width="40" />
+                    <TextBlock TextWrapping="Wrap" Text="{Binding [BindingPage_CommandBind_Description], Source={x:Static ap:LocalizationSource.Instance}}" />
+                    <StackPanel
+                        Margin="0,4,0,0"
+                        Orientation="Horizontal"
+                        Spacing="8">
+                        <Button
+                            x:Name="DecrementButton"
+                            Width="40"
+                            Content=" - " />
                         <TextBlock
                             x:Name="CounterValueText"
-                            VerticalAlignment="Center"
                             Width="60"
+                            VerticalAlignment="Center"
                             TextAlignment="Center"
                             FontSize="16"
                             FontWeight="Bold" />
-                        <Button x:Name="IncrementButton" Content=" + " Width="40" />
                         <Button
-                            x:Name="ResetButton"
-                            Content="{Binding [BindingPage_Button_Reset], Source={x:Static ap:LocalizationSource.Instance}}" />
+                            x:Name="IncrementButton"
+                            Width="40"
+                            Content=" + " />
+                        <Button x:Name="ResetButton" Content="{Binding [BindingPage_Button_Reset], Source={x:Static ap:LocalizationSource.Instance}}" />
                     </StackPanel>
                 </StackPanel>
             </Border>
 
-            <!-- Section 3: Boolean Binding -->
+            <!--  Section 3: Boolean Binding  -->
             <Border
+                Padding="12"
                 BorderThickness="1"
                 BorderBrush="{DynamicResource SemiColorPrimary}"
-                CornerRadius="6"
-                Padding="12">
+                CornerRadius="6">
                 <StackPanel Spacing="8">
                     <TextBlock
                         Theme="{StaticResource TitleTextBlock}"
                         Classes="H6"
                         Text="{Binding [BindingPage_BoolBind_Title], Source={x:Static ap:LocalizationSource.Instance}}" />
-                    <TextBlock
-                        TextWrapping="Wrap"
-                        Text="{Binding [BindingPage_BoolBind_Description], Source={x:Static ap:LocalizationSource.Instance}}" />
+                    <TextBlock TextWrapping="Wrap" Text="{Binding [BindingPage_BoolBind_Description], Source={x:Static ap:LocalizationSource.Instance}}" />
                     <CheckBox
                         x:Name="ToggledCheckBox"
-                        Content="{Binding [BindingPage_CheckBox_IsToggled], Source={x:Static ap:LocalizationSource.Instance}}"
-                        Margin="0,4,0,0" />
+                        Margin="0,4,0,0"
+                        Content="{Binding [BindingPage_CheckBox_IsToggled], Source={x:Static ap:LocalizationSource.Instance}}" />
                     <StackPanel Orientation="Horizontal" Spacing="8">
-                        <TextBlock
-                            Text="{Binding [BindingPage_Label_Status], Source={x:Static ap:LocalizationSource.Instance}}"
-                            VerticalAlignment="Center" />
+                        <TextBlock VerticalAlignment="Center" Text="{Binding [BindingPage_Label_Status], Source={x:Static ap:LocalizationSource.Instance}}" />
                         <TextBlock x:Name="ToggledStatusText" VerticalAlignment="Center" />
                     </StackPanel>
                 </StackPanel>
