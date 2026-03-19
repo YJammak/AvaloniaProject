@@ -68,6 +68,7 @@
                 <u:IconButton
                     x:Name="AboutButton"
                     Classes="Tertiary"
+                    Click="OnAboutButtonClick"
                     Icon="{StaticResource SemiIconInfoCircle}"
                     Theme="{DynamicResource BorderlessIconButton}" />
             </StackPanel>

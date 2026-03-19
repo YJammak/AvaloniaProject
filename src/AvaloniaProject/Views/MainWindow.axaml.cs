@@ -59,4 +59,9 @@ public partial class MainWindow : ReactiveUrsaWindow<MainWindowViewModel>
 
         LocalizationService.Instance.SetCulture(menuItem == ChineseMenuItem ? "zh-Hans" : "en-US");
     }
+
+    private void OnAboutButtonClick(object? sender, RoutedEventArgs e)
+    {
+        Dialog.ShowCustomModal<AboutView, AboutViewModel, bool>(new AboutViewModel());
+    }
 }

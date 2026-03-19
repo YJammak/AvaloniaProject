@@ -1,0 +1,54 @@
+﻿<u:ReactiveUrsaView
+    x:Class="AvaloniaProject.Views.AboutView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ap="https://yjammak.net/avalonia-project"
+    xmlns:u="https://irihi.tech/ursa"
+    x:TypeArguments="ap:AboutViewModel"
+    d:DesignWidth="800"
+    d:DesignHeight="450"
+    mc:Ignorable="d">
+    <Panel>
+        <Border
+            Margin="20"
+            BoxShadow="{DynamicResource SukiPopupShadow}"
+            CornerRadius="20" />
+        <Border
+            MinWidth="50"
+            Margin="15"
+            Background="{DynamicResource SukiCardBackground}"
+            BorderBrush="{DynamicResource SukiLightBorderBrush}"
+            BorderThickness="1"
+            ClipToBounds="True"
+            CornerRadius="15">
+            <Border Padding="15" Background="{DynamicResource PopupGradientBrush}">
+                <StackPanel Margin="0,0,0,0" Spacing="10">
+                    <Image
+                        Width="100"
+                        Height="100"
+                        Margin="0,0,0,20"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        IsHitTestVisible="False"
+                        Source="/Assets/logo.ico" />
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Text="AvaloniaProject" />
+                    <TextBlock
+                        x:Name="AppVersionTextBlock"
+                        HorizontalAlignment="Center"
+                        FontSize="14"
+                        FontWeight="Bold" />
+                    <TextBlock
+                        FontSize="10"
+                        Foreground="{DynamicResource SukiLowText}"
+                        Text="Copyright © 2026 YJammak. All rights reserved." />
+                </StackPanel>
+            </Border>
+        </Border>
+    </Panel>
+</u:ReactiveUrsaView>
