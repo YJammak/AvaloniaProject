@@ -85,21 +85,6 @@
     <data name="HomePage_Title" xml:space="preserve">
     <value>欢迎使用 AvaloniaProject！</value>
   </data>
-    <data name="HomePage_Description" xml:space="preserve">
-    <value>这是一个示例 Avalonia 应用，集成了多个框架与库，可作为新项目创建时的参考。</value>
-  </data>
-    <data name="HomePage_Feature_1" xml:space="preserve">
-    <value>- 使用了 ReactiveUI MVVM 框架。</value>
-  </data>
-    <data name="HomePage_Feature_2" xml:space="preserve">
-    <value>- 使用了 Semi.Avalonia 与 Ursa.Avalonia 主题。</value>
-  </data>
-    <data name="HomePage_Feature_3" xml:space="preserve">
-    <value>- 使用了 Icons.Avalonia 的 Material Design 图标。</value>
-  </data>
-    <data name="HomePage_Feature_4" xml:space="preserve">
-    <value>- 使用 AOT 发布。</value>
-  </data>
     <data name="BindingPage_Title" xml:space="preserve">
     <value>ReactiveUI 绑定</value>
   </data>
@@ -120,6 +105,9 @@
 - 使用了 [Semi.Avalonia](https://github.com/irihitech/Semi.Avalonia) 与 [Ursa.Avalonia](https://github.com/irihitech/Ursa.Avalonia) 主题。
 - 使用了 [Icons.Avalonia](https://github.com/Projektanker/Icons.Avalonia) 的 Material Design 图标。
 - 使用 AOT 发布。</value>
+    </data>
+    <data name="MainWindow_LanguageTooltip" xml:space="preserve">
+        <value>简体中文</value>
     </data>
 </root>
 

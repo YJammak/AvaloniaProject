@@ -49,6 +49,7 @@ public partial class MainWindow : ReactiveUrsaWindow<MainWindowViewModel>
         var isChinese = cultureName.StartsWith("zh", StringComparison.OrdinalIgnoreCase);
         ChineseMenuItem.IsChecked = isChinese;
         EnglishMenuItem.IsChecked = !isChinese;
+        ToolTip.SetTip(LanguageButton, LocalizationSource.Instance["MainWindow_LanguageTooltip"]);
         ToolTip.SetTip(AboutButton, LocalizationSource.Instance["MainWindow_AboutTooltip"]);
     }
 

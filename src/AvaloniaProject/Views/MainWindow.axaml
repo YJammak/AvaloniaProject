@@ -61,7 +61,7 @@
                                 x:Name="ChineseMenuItem"
                                 Click="OnLanguageMenuItemClick"
                                 ToggleType="Radio"
-                                Header="中文简体" />
+                                Header="简体中文" />
                         </MenuFlyout>
                     </Button.Flyout>
                 </u:IconButton>

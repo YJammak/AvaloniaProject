@@ -103,5 +103,8 @@
 - Used the [Icons.Avalonia](https://github.com/Projektanker/Icons.Avalonia)'s Material Design icons.
 - Published using AOT.</value>
     </data>
+    <data name="MainWindow_LanguageTooltip" xml:space="preserve">
+        <value>English</value>
+    </data>
 </root>
 
