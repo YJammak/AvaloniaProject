@@ -65,32 +65,29 @@
         </value>
     </resheader>
     <data name="App_Title" xml:space="preserve">
-    <value>AvaloniaProject</value>
-  </data>
+        <value>AvaloniaProject</value>
+    </data>
     <data name="MainWindow_AboutTooltip" xml:space="preserve">
-    <value>关于</value>
-  </data>
+        <value>关于</value>
+    </data>
     <data name="MainWindow_CloseConfirm_Message" xml:space="preserve">
         <value>确认要退出吗？</value>
     </data>
     <data name="MainWindow_CloseConfirm_Title" xml:space="preserve">
-    <value>退出</value>
-  </data>
+        <value>退出</value>
+    </data>
     <data name="MainView_Default_Title" xml:space="preserve">
-    <value>Avalonia 项目</value>
-  </data>
+        <value>Avalonia 项目</value>
+    </data>
     <data name="MainView_Default_Description" xml:space="preserve">
-    <value>请在左侧选择功能页面。</value>
-  </data>
-    <data name="HomePage_Title" xml:space="preserve">
-    <value>欢迎使用 AvaloniaProject！</value>
-  </data>
+        <value>请在左侧选择功能页面。</value>
+    </data>
     <data name="BindingPage_Title" xml:space="preserve">
-    <value>ReactiveUI 绑定</value>
-  </data>
+        <value>ReactiveUI 绑定</value>
+    </data>
     <data name="BindingPage_Description" xml:space="preserve">
-    <value>本节介绍 ReactiveUI 在 Avalonia 中的 Binding 用法。</value>
-  </data>
+        <value>本节介绍 ReactiveUI 在 Avalonia 中的 Binding 用法。</value>
+    </data>
     <data name="BindingPage_TwoWayBind_Title" xml:space="preserve">
         <value>双向绑定 (Bind)</value>
     </data>
@@ -131,11 +128,11 @@
         <value>已禁用</value>
     </data>
     <data name="Page_Home" xml:space="preserve">
-    <value>主页</value>
-  </data>
+        <value>主页</value>
+    </data>
     <data name="Page_Binding" xml:space="preserve">
-    <value>绑定</value>
-  </data>
+        <value>绑定</value>
+    </data>
     <data name="HomePage_Content" xml:space="preserve">
         <value># 欢迎使用 AvaloniaProject！
 #### 这是一个示例 Avalonia 应用，集成了多个框架与库，可作为新项目创建时的参考。
@@ -147,6 +144,12 @@
     </data>
     <data name="MainWindow_LanguageTooltip" xml:space="preserve">
         <value>简体中文</value>
+    </data>
+    <data name="BindingPage_ListBind_Title" xml:space="preserve">
+        <value>集合绑定 (BindCommand / OneWayBind)</value>
+    </data>
+    <data name="BindingPage_ListBind_Description" xml:space="preserve">
+        <value>按钮与 ViewModel 中的 ReactiveCommand 绑定。列表通过 OneWayBind 与 ViewModel 中可观察列表绑定。点击按钮可以增加、减少或重置记录。</value>
     </data>
 </root>
 

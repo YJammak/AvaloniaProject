@@ -73,5 +73,33 @@ public partial class BindingPageView : ReactiveUrsaView<BindingPageViewModel>
                 vm => vm.StatusText,
                 v => v.ToggledStatusText.Text)
             .DisposeWith(disposable);
+
+        // Command binding: Button → ViewModel.AddRecordCommand
+        this.BindCommand(
+                ViewModel,
+                vm => vm.AddRecordCommand,
+                v => v.AddRecordButton)
+            .DisposeWith(disposable);
+
+        // Command binding: Button → ViewModel.RemoveRecordCommand
+        this.BindCommand(
+                ViewModel,
+                vm => vm.RemoveRecordCommand,
+                v => v.RemoveRecordButton)
+            .DisposeWith(disposable);
+
+        // Command binding: Button → ViewModel.ResetRecordCommand
+        this.BindCommand(
+                ViewModel,
+                vm => vm.ResetRecordCommand,
+                v => v.ResetRecordButton)
+            .DisposeWith(disposable);
+
+        // One-way binding: ViewModel.Records → ListBox.ItemsSource
+        this.OneWayBind(
+                ViewModel,
+                vm => vm.Records,
+                v => v.RecordsListBox.ItemsSource)
+            .DisposeWith(disposable);
     }
 }
