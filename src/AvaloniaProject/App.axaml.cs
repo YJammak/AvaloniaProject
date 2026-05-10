@@ -5,8 +5,8 @@ using Avalonia.Markup.Xaml;
 using AvaloniaProject.Services;
 using AvaloniaProject.ViewModels;
 using AvaloniaProject.Views;
+using Ursa.Themes.Semi;
 using SemiTheme = Semi.Avalonia.SemiTheme;
-using UrsaSemiTheme = Ursa.Themes.Semi.SemiTheme;
 
 namespace AvaloniaProject;
 
@@ -16,6 +16,10 @@ public class App : Application
     {
         LocalizationService.Instance.SetCulture(LocalizationService.Instance.ResolveStartupCulture());
         AvaloniaXamlLoader.Load(this);
+
+#if DEBUG
+        this.AttachDeveloperTools();
+#endif
 
         ApplyThemeLocale(LocalizationSource.Instance.ThemeCulture);
         LocalizationService.Instance.CultureChanged += (_, _) =>
