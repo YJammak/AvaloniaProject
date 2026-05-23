@@ -19,8 +19,11 @@ public partial class MainWindow : ReactiveUrsaWindow<MainWindowViewModel>
         InitializeComponent();
 
         SetLanguageSelector(LocalizationService.Instance.CurrentCulture.Name);
-        LocalizationService.Instance.CultureChanged += (_, _) =>
+        EventHandler? cultureChangedHandler = (_, _) =>
             SetLanguageSelector(LocalizationService.Instance.CurrentCulture.Name);
+        LocalizationService.Instance.CultureChanged += cultureChangedHandler;
+
+        Closed += (_, _) => { LocalizationService.Instance.CultureChanged -= cultureChangedHandler; };
 
         this.WhenActivated(OnWhenActivated);
     }
@@ -63,6 +66,6 @@ public partial class MainWindow : ReactiveUrsaWindow<MainWindowViewModel>
 
     private void OnAboutButtonClick(object? sender, RoutedEventArgs e)
     {
-        Dialog.ShowCustomModal<AboutView, AboutViewModel, bool>(new AboutViewModel());
+        Dialog.ShowCustomAsync<AboutView, AboutViewModel, bool>(new AboutViewModel());
     }
 }

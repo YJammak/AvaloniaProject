@@ -12,7 +12,7 @@ namespace AvaloniaProject.ViewModels;
 public partial class MainViewModel : ViewModelBase
 {
     public IEnumerable<PageViewModel> Pages =>
-        AppLocator.Current.GetServices<PageViewModel>().OrderBy(p => p.Index);
+        field ??= AppLocator.Current.GetServices<PageViewModel>().OrderBy(p => p.Index).ToList();
 
     [Reactive]
     public partial PageViewModel? SelectedPage { get; set; }

@@ -1,10 +1,13 @@
-﻿using AvaloniaProject.Services;
+﻿using System;
+using AvaloniaProject.Services;
 using ReactiveUI.SourceGenerators;
 
 namespace AvaloniaProject.ViewModels.Pages;
 
 public abstract partial class PageViewModel : ViewModelBase
 {
+    private readonly EventHandler? _cultureChangedHandler;
+
     [Reactive]
     public partial string Name { get; private set; }
 
@@ -19,11 +22,21 @@ public abstract partial class PageViewModel : ViewModelBase
 
     protected PageViewModel(string nameKey, string icon, int index, int iconSize = 18)
     {
+        var nameKey1 = nameKey;
         Name = LocalizationService.Instance[nameKey];
         Icon = icon;
         Index = index;
         IconSize = iconSize;
 
-        LocalizationService.Instance.CultureChanged += (_, _) => { Name = LocalizationService.Instance[nameKey]; };
+        _cultureChangedHandler = (_, _) => { Name = LocalizationService.Instance[nameKey1]; };
+        LocalizationService.Instance.CultureChanged += _cultureChangedHandler;
+    }
+
+    public override void Dispose()
+    {
+        if (_cultureChangedHandler is not null)
+            LocalizationService.Instance.CultureChanged -= _cultureChangedHandler;
+
+        base.Dispose();
     }
 }

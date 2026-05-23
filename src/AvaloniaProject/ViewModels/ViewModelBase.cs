@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using ReactiveUI;
 using ReactiveUI.Validation.Abstractions;
 using ReactiveUI.Validation.Contexts;
+using Splat;
 
 namespace AvaloniaProject.ViewModels;
 
@@ -20,7 +21,7 @@ public abstract class ViewModelBase :
 
     public ViewModelActivator Activator { get; } = new();
 
-    public void Dispose()
+    public virtual void Dispose()
     {
         Activator.Dispose();
         ValidationContext.Dispose();
@@ -34,9 +35,9 @@ public abstract class ViewModelBase :
         {
             await OnWhenActivatedAsync(disposable);
         }
-        catch
+        catch (Exception ex)
         {
-            //
+            this.Log().Error(ex, "Error during ViewModel activation");
         }
     }
 

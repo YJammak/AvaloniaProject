@@ -11,4 +11,6 @@
     <assembly fullname="Semi.Avalonia.DataGrid"/>
     <assembly fullname="Ursa"/>
     <assembly fullname="Ursa.Themes.Semi"/>
+    <assembly fullname="LiveMarkdown.Avalonia"/>
+    <assembly fullname="Optris.Icons.Avalonia.MaterialDesign"/>
 </linker>

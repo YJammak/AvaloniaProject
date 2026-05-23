@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
+using Avalonia;
 using AvaloniaProject.Services;
 using AvaloniaProject.ViewModels.Pages;
 using LiveMarkdown.Avalonia;
@@ -14,6 +15,7 @@ namespace AvaloniaProject.Views.Pages;
 public partial class HomePageView : ReactiveUrsaView<HomePageViewModel>
 {
     private readonly ObservableStringBuilder _markdownBuilder;
+    private readonly EventHandler? _cultureChangedHandler;
 
     public HomePageView()
     {
@@ -22,9 +24,18 @@ public partial class HomePageView : ReactiveUrsaView<HomePageViewModel>
         _markdownBuilder = new ObservableStringBuilder();
         MarkdownRenderer.MarkdownBuilder = _markdownBuilder;
         UpdateContent();
-        LocalizationService.Instance.CultureChanged += (_, _) => UpdateContent();
+        _cultureChangedHandler = (_, _) => UpdateContent();
+        LocalizationService.Instance.CultureChanged += _cultureChangedHandler;
 
         this.WhenActivated(OnWhenActivated);
+    }
+
+    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        base.OnDetachedFromVisualTree(e);
+
+        if (_cultureChangedHandler is not null)
+            LocalizationService.Instance.CultureChanged -= _cultureChangedHandler;
     }
 
     private void OnWhenActivated(CompositeDisposable disposable)
