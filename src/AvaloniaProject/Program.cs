@@ -3,6 +3,8 @@ using System.Text;
 using Avalonia;
 using AvaloniaProject.Services;
 using AvaloniaProject.Utils;
+using AvaloniaProject.ViewModels;
+using AvaloniaProject.ViewModels.Pages;
 using NLog;
 using NLog.Targets;
 using Optris.Icons.Avalonia;
@@ -32,6 +34,9 @@ internal sealed class Program
         // Register Icon
         IconProvider.Current.Register<MaterialDesignIconProvider>();
 
+        // --- Composition root: register all services and ViewModels ---
+        RegisterServices();
+
         return AppBuilder.Configure<App>()
             .UsePlatformDetect()
             .WithInterFont()
@@ -39,6 +44,22 @@ internal sealed class Program
             .UseReactiveUI(_ => { })
             .RegisterReactiveUIViewsFromEntryAssembly()
             .UsePages();
+    }
+
+    private static void RegisterServices()
+    {
+        // Services
+        var localizationService = new LocalizationService();
+        Locator.CurrentMutable.RegisterConstant<ILocalizationService>(localizationService);
+
+        // ViewModels — resolved via Splat, dependencies injected via constructor
+        Locator.CurrentMutable.RegisterLazySingleton<MainViewModel>(() =>
+            new MainViewModel(Locator.Current.GetServices<PageViewModel>()));
+
+        Locator.CurrentMutable.RegisterLazySingleton<MainWindowViewModel>(() =>
+            new MainWindowViewModel(
+                Locator.Current.GetService<MainViewModel>()!
+            ));
     }
 
     private static void NLogConfigure()

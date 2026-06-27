@@ -1,6 +1,11 @@
-﻿namespace AvaloniaProject.ViewModels;
+namespace AvaloniaProject.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
-    public ViewModelBase MainView { get; } = new MainViewModel();
+    public ViewModelBase MainView { get; }
+
+    public MainWindowViewModel(MainViewModel mainView)
+    {
+        MainView = mainView;
+    }
 }

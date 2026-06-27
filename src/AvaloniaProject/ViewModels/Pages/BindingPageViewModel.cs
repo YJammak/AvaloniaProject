@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.ObjectModel;
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
-using AvaloniaProject.Services;
+using System.Threading.Tasks;
 using DynamicData;
 using ReactiveUI;
 using ReactiveUI.SourceGenerators;
@@ -28,7 +28,8 @@ public partial class BindingPageViewModel : PageViewModel
     public ReadOnlyObservableCollection<string> Records => _records;
     private readonly ReadOnlyObservableCollection<string> _records;
 
-    public BindingPageViewModel() : base("Page_Binding", "mdi-link-variant", 1, 16)
+    public BindingPageViewModel() :
+        base("Page_Binding", "mdi-link-variant", 1, 16)
     {
         InputText = string.Empty;
         StatusText = string.Empty;
@@ -42,9 +43,9 @@ public partial class BindingPageViewModel : PageViewModel
             .Subscribe();
     }
 
-    protected override void OnWhenActivated(CompositeDisposable disposable)
+    protected override async Task OnWhenActivatedAsync(CompositeDisposable disposable)
     {
-        base.OnWhenActivated(disposable);
+        await base.OnWhenActivatedAsync(disposable);
 
         UpdateStatusText();
 
@@ -54,8 +55,8 @@ public partial class BindingPageViewModel : PageViewModel
             .DisposeWith(disposable);
 
         Observable.FromEventPattern(
-                handler => LocalizationService.Instance.CultureChanged += handler,
-                handler => LocalizationService.Instance.CultureChanged -= handler)
+                handler => Localization.CultureChanged += handler,
+                handler => Localization.CultureChanged -= handler)
             .Do(_ => UpdateStatusText())
             .Subscribe()
             .DisposeWith(disposable);
@@ -64,8 +65,8 @@ public partial class BindingPageViewModel : PageViewModel
     private void UpdateStatusText()
     {
         StatusText = IsToggled
-            ? LocalizationService.Instance["BindingPage_Status_Enabled"]
-            : LocalizationService.Instance["BindingPage_Status_Disabled"];
+            ? Localization["BindingPage_Status_Enabled"]
+            : Localization["BindingPage_Status_Disabled"];
     }
 
     [ReactiveCommand]

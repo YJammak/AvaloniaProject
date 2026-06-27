@@ -16,7 +16,15 @@ public abstract class ViewModelBase :
 {
     protected ViewModelBase()
     {
-        this.WhenActivated(OnWhenActivated);
+        this.WhenActivated(disposable =>
+        {
+            OnWhenActivatedAsync(disposable)
+                .ContinueWith(t =>
+                {
+                    if (t.IsFaulted && t.Exception is not null)
+                        this.Log().Error(t.Exception, "Error during ViewModel activation");
+                }, TaskContinuationOptions.OnlyOnFaulted);
+        });
     }
 
     public ViewModelActivator Activator { get; } = new();
@@ -28,18 +36,6 @@ public abstract class ViewModelBase :
     }
 
     public IValidationContext ValidationContext { get; } = new ValidationContext();
-
-    protected virtual async void OnWhenActivated(CompositeDisposable disposable)
-    {
-        try
-        {
-            await OnWhenActivatedAsync(disposable);
-        }
-        catch (Exception ex)
-        {
-            this.Log().Error(ex, "Error during ViewModel activation");
-        }
-    }
 
     protected virtual Task OnWhenActivatedAsync(CompositeDisposable disposable)
     {

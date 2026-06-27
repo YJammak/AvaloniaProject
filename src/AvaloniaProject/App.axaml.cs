@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -5,6 +6,7 @@ using Avalonia.Markup.Xaml;
 using AvaloniaProject.Services;
 using AvaloniaProject.ViewModels;
 using AvaloniaProject.Views;
+using Splat;
 using Ursa.Themes.Semi;
 using SemiTheme = Semi.Avalonia.SemiTheme;
 
@@ -14,7 +16,10 @@ public class App : Application
 {
     public override void Initialize()
     {
-        LocalizationService.Instance.SetCulture(LocalizationService.Instance.ResolveStartupCulture());
+        var localization = Locator.Current.GetService<ILocalizationService>()
+                          ?? throw new InvalidOperationException(
+                              "ILocalizationService is not registered. Ensure RegisterServices() is called first.");
+        localization.SetCulture(localization.ResolveStartupCulture());
         AvaloniaXamlLoader.Load(this);
 
 #if DEBUG
@@ -22,17 +27,20 @@ public class App : Application
 #endif
 
         ApplyThemeLocale(LocalizationSource.Instance.ThemeCulture);
-        LocalizationService.Instance.CultureChanged += (_, _) =>
+        localization.CultureChanged += (_, _) =>
             ApplyThemeLocale(LocalizationSource.Instance.ThemeCulture);
     }
 
     public override void OnFrameworkInitializationCompleted()
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            var mainWindowViewModel = Locator.Current.GetService<MainWindowViewModel>()!;
             desktop.MainWindow = new MainWindow
             {
-                DataContext = new MainWindowViewModel()
+                DataContext = mainWindowViewModel
             };
+        }
 
         base.OnFrameworkInitializationCompleted();
     }

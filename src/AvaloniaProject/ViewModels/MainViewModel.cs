@@ -1,39 +1,30 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Disposables;
-using AvaloniaProject.Services;
+using System.Threading.Tasks;
 using AvaloniaProject.ViewModels.Pages;
 using ReactiveUI.SourceGenerators;
-using Splat;
 
 namespace AvaloniaProject.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
-    public IEnumerable<PageViewModel> Pages =>
-        field ??= AppLocator.Current.GetServices<PageViewModel>().OrderBy(p => p.Index).ToList();
+    private readonly List<PageViewModel> _pages;
+
+    public IEnumerable<PageViewModel> Pages => _pages;
 
     [Reactive]
     public partial PageViewModel? SelectedPage { get; set; }
 
-    protected override void OnWhenActivated(CompositeDisposable disposable)
+    public MainViewModel(IEnumerable<PageViewModel> pages)
     {
-        base.OnWhenActivated(disposable);
-        SelectedPage = Pages.FirstOrDefault();
+        _pages = pages.OrderBy(p => p.Index).ToList();
+    }
 
-        EventHandler onCultureChanged = (_, _) =>
-        {
-            var currentPage = SelectedPage;
-            if (currentPage is null)
-                return;
-
-            // Force ViewModelViewHost to rebuild current page view immediately on language change.
-            SelectedPage = null;
-            SelectedPage = currentPage;
-        };
-
-        LocalizationService.Instance.CultureChanged += onCultureChanged;
-        disposable.Add(Disposable.Create(() => LocalizationService.Instance.CultureChanged -= onCultureChanged));
+    protected override async Task OnWhenActivatedAsync(CompositeDisposable disposable)
+    {
+        await base.OnWhenActivatedAsync(disposable);
+        SelectedPage = _pages.FirstOrDefault();
     }
 }

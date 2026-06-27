@@ -1,23 +1,36 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Globalization;
+using Splat;
 
 namespace AvaloniaProject.Services;
 
 public sealed class LocalizationSource : INotifyPropertyChanged
 {
-    public static LocalizationSource Instance { get; } = new();
+    private static readonly Lazy<LocalizationSource> LazyInstance = new(() =>
+    {
+        var localization = Locator.Current.GetService<ILocalizationService>();
+        if (localization is null)
+            throw new InvalidOperationException(
+                "ILocalizationService is not registered. Ensure RegisterServices() is called before XAML loads.");
+        return new LocalizationSource(localization);
+    });
 
-    public string this[string key] => LocalizationService.Instance[key];
+    public static LocalizationSource Instance => LazyInstance.Value;
+
+    private readonly ILocalizationService _localization;
+
+    public string this[string key] => _localization[key];
 
     public CultureInfo ThemeCulture =>
-        LocalizationService.Instance.CurrentCulture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase)
+        _localization.CurrentCulture.Name.StartsWith("zh", StringComparison.OrdinalIgnoreCase)
             ? CultureInfo.GetCultureInfo("zh-CN")
             : CultureInfo.GetCultureInfo("en-US");
 
-    private LocalizationSource()
+    public LocalizationSource(ILocalizationService localization)
     {
-        LocalizationService.Instance.CultureChanged += (_, _) =>
+        _localization = localization;
+        _localization.CultureChanged += (_, _) =>
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Item[]"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ThemeCulture)));

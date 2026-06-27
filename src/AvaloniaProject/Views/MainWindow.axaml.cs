@@ -7,6 +7,7 @@ using Avalonia.Interactivity;
 using AvaloniaProject.Services;
 using AvaloniaProject.ViewModels;
 using ReactiveUI;
+using Splat;
 using Ursa.Controls;
 using Ursa.ReactiveUIExtension;
 
@@ -14,16 +15,21 @@ namespace AvaloniaProject.Views;
 
 public partial class MainWindow : ReactiveUrsaWindow<MainWindowViewModel>
 {
+    private readonly ILocalizationService _localization;
+
     public MainWindow()
     {
+        _localization = Locator.Current.GetService<ILocalizationService>()
+                        ?? throw new InvalidOperationException(
+                            "ILocalizationService is not registered. Ensure RegisterServices() is called first.");
         InitializeComponent();
 
-        SetLanguageSelector(LocalizationService.Instance.CurrentCulture.Name);
+        SetLanguageSelector(_localization.CurrentCulture.Name);
         EventHandler? cultureChangedHandler = (_, _) =>
-            SetLanguageSelector(LocalizationService.Instance.CurrentCulture.Name);
-        LocalizationService.Instance.CultureChanged += cultureChangedHandler;
+            SetLanguageSelector(_localization.CurrentCulture.Name);
+        _localization.CultureChanged += cultureChangedHandler;
 
-        Closed += (_, _) => { LocalizationService.Instance.CultureChanged -= cultureChangedHandler; };
+        Closed += (_, _) => { _localization.CultureChanged -= cultureChangedHandler; };
 
         this.WhenActivated(OnWhenActivated);
     }
@@ -40,8 +46,8 @@ public partial class MainWindow : ReactiveUrsaWindow<MainWindowViewModel>
     protected override async Task<bool> CanClose()
     {
         var result = await MessageBox.ShowAsync(
-            LocalizationService.Instance["MainWindow_CloseConfirm_Message"],
-            LocalizationService.Instance["MainWindow_CloseConfirm_Title"],
+            _localization["MainWindow_CloseConfirm_Message"],
+            _localization["MainWindow_CloseConfirm_Title"],
             MessageBoxIcon.Question,
             MessageBoxButton.OKCancel);
         return result == MessageBoxResult.OK;
@@ -61,7 +67,7 @@ public partial class MainWindow : ReactiveUrsaWindow<MainWindowViewModel>
         if (sender is not MenuItem menuItem)
             return;
 
-        LocalizationService.Instance.SetCulture(menuItem == ChineseMenuItem ? "zh-Hans" : "en-US");
+        _localization.SetCulture(menuItem == ChineseMenuItem ? "zh-Hans" : "en-US");
     }
 
     private void OnAboutButtonClick(object? sender, RoutedEventArgs e)

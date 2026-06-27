@@ -1,4 +1,5 @@
-﻿using Avalonia;
+using System;
+using Avalonia;
 using AvaloniaProject.ViewModels.Pages;
 using Splat;
 
@@ -8,14 +9,14 @@ public static class PageExtensions
 {
     public static AppBuilder UsePages(this AppBuilder builder)
     {
-        Register<HomePageViewModel>();
-        Register<BindingPageViewModel>();
+        Register(() => new HomePageViewModel());
+        Register(() => new BindingPageViewModel());
         return builder;
     }
 
-    private static void Register<T>()
-        where T : PageViewModel, new()
+    private static void Register<T>(Func<T> factory)
+        where T : PageViewModel
     {
-        Locator.CurrentMutable.Register<PageViewModel, T>();
+        Locator.CurrentMutable.Register<PageViewModel>(() => factory());
     }
 }

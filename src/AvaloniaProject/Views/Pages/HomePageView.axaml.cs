@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
@@ -8,41 +8,40 @@ using AvaloniaProject.Services;
 using AvaloniaProject.ViewModels.Pages;
 using LiveMarkdown.Avalonia;
 using ReactiveUI;
+using Splat;
 using Ursa.ReactiveUIExtension;
 
 namespace AvaloniaProject.Views.Pages;
 
 public partial class HomePageView : ReactiveUrsaView<HomePageViewModel>
 {
+    private readonly ILocalizationService _localization;
     private readonly ObservableStringBuilder _markdownBuilder;
-    private readonly EventHandler? _cultureChangedHandler;
 
     public HomePageView()
     {
+        _localization = Locator.Current.GetService<ILocalizationService>()
+                        ?? throw new InvalidOperationException(
+                            "ILocalizationService is not registered. Ensure RegisterServices() is called first.");
         InitializeComponent();
 
         _markdownBuilder = new ObservableStringBuilder();
         MarkdownRenderer.MarkdownBuilder = _markdownBuilder;
         UpdateContent();
-        _cultureChangedHandler = (_, _) => UpdateContent();
-        LocalizationService.Instance.CultureChanged += _cultureChangedHandler;
 
         this.WhenActivated(OnWhenActivated);
     }
 
-    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
-    {
-        base.OnDetachedFromVisualTree(e);
-
-        if (_cultureChangedHandler is not null)
-            LocalizationService.Instance.CultureChanged -= _cultureChangedHandler;
-    }
-
     private void OnWhenActivated(CompositeDisposable disposable)
     {
+        EventHandler handler = (_, _) => UpdateContent();
+        _localization.CultureChanged += handler;
+        Disposable.Create(() => _localization.CultureChanged -= handler)
+            .DisposeWith(disposable);
+
         Observable.FromEventPattern<LinkClickedEventArgs>(
-                handler => MarkdownRenderer.LinkClick += handler,
-                handler => MarkdownRenderer.LinkClick -= handler)
+                h => MarkdownRenderer.LinkClick += h,
+                h => MarkdownRenderer.LinkClick -= h)
             .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Do(args =>
             {
@@ -63,6 +62,6 @@ public partial class HomePageView : ReactiveUrsaView<HomePageViewModel>
     private void UpdateContent()
     {
         _markdownBuilder.Clear();
-        _markdownBuilder.AppendLine(LocalizationService.Instance["HomePage_Content"]);
+        _markdownBuilder.AppendLine(_localization["HomePage_Content"]);
     }
 }

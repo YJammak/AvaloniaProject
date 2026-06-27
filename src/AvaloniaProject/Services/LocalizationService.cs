@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Reflection;
 using System.Resources;
 
 namespace AvaloniaProject.Services;
 
-public sealed class LocalizationService
+public sealed class LocalizationService : ILocalizationService
 {
     private const string DefaultCultureName = "en-US";
     private const string SimplifiedChineseCultureName = "zh-Hans";
@@ -13,13 +13,14 @@ public sealed class LocalizationService
     private static readonly ResourceManager ResourceManager =
         new("AvaloniaProject.Resources.Strings", Assembly.GetExecutingAssembly());
 
-    public static LocalizationService Instance { get; } = new();
+    public LocalizationService()
+    {
+        CurrentCulture = CultureInfo.GetCultureInfo(DefaultCultureName);
+    }
 
-    public CultureInfo CurrentCulture { get; private set; } = CultureInfo.GetCultureInfo(DefaultCultureName);
+    public CultureInfo CurrentCulture { get; private set; }
 
     public string this[string key] => GetString(key);
-
-    private LocalizationService() { }
 
     public event EventHandler? CultureChanged;
 

@@ -1,4 +1,4 @@
-﻿namespace AvaloniaProject.ViewModels.Pages;
+namespace AvaloniaProject.ViewModels.Pages;
 
 public class HomePageViewModel : PageViewModel
 {
