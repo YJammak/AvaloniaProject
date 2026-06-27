@@ -1,15 +1,17 @@
 using System;
+using System.Reactive.Disposables;
+using System.Reactive.Disposables.Fluent;
+using System.Threading.Tasks;
 using AvaloniaProject.Services;
 using ReactiveUI.SourceGenerators;
 using Splat;
 
 namespace AvaloniaProject.ViewModels.Pages;
 
-public abstract partial class PageViewModel : ViewModelBase
+public abstract partial class PageViewModel : ViewModelBase, IPageViewModel
 {
     protected readonly ILocalizationService Localization;
     private readonly string _nameKey;
-    private readonly EventHandler _cultureChangedHandler;
 
     [Reactive]
     public partial string Name { get; private set; }
@@ -37,14 +39,16 @@ public abstract partial class PageViewModel : ViewModelBase
         Icon = icon;
         Index = index;
         IconSize = iconSize;
-
-        _cultureChangedHandler = (_, _) => Name = Localization[_nameKey];
-        Localization.CultureChanged += _cultureChangedHandler;
     }
 
-    public override void Dispose()
+    protected override async Task OnWhenActivatedAsync(CompositeDisposable disposable)
     {
-        Localization.CultureChanged -= _cultureChangedHandler;
-        base.Dispose();
+        await base.OnWhenActivatedAsync(disposable);
+
+        var nameKey = _nameKey;
+        EventHandler handler = (_, _) => Name = Localization[nameKey];
+        Localization.CultureChanged += handler;
+        Disposable.Create(() => Localization.CultureChanged -= handler)
+            .DisposeWith(disposable);
     }
 }

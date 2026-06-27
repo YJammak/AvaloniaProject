@@ -29,7 +29,7 @@ public partial class MainView : ReactiveUrsaView<MainViewModel>
                 vm => vm.SelectedPage,
                 v => v.NavMenu.SelectedItem,
                 page => page,
-                item => item as PageViewModel)
+                item => item as IPageViewModel)
             .DisposeWith(disposable);
 
         this.OneWayBind(

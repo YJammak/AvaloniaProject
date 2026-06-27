@@ -17,6 +17,6 @@ public static class PageExtensions
     private static void Register<T>(Func<T> factory)
         where T : PageViewModel
     {
-        Locator.CurrentMutable.Register<PageViewModel>(() => factory());
+        Locator.CurrentMutable.Register<IPageViewModel>(() => factory());
     }
 }

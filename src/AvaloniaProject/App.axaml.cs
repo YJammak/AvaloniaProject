@@ -19,6 +19,10 @@ public class App : Application
         var localization = Locator.Current.GetService<ILocalizationService>()
                           ?? throw new InvalidOperationException(
                               "ILocalizationService is not registered. Ensure RegisterServices() is called first.");
+
+        // Force LocalizationSource creation before SetCulture so it can subscribe to CultureChanged
+        _ = LocalizationSource.Instance;
+
         localization.SetCulture(localization.ResolveStartupCulture());
         AvaloniaXamlLoader.Load(this);
 

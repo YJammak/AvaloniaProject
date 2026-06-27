@@ -32,8 +32,9 @@ public sealed class LocalizationSource : INotifyPropertyChanged
         _localization = localization;
         _localization.CultureChanged += (_, _) =>
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Item[]"));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ThemeCulture)));
+            // string.Empty signals "all properties changed" — more reliable than "Item[]"
+            // for Avalonia compiled bindings on indexer paths.
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(string.Empty));
         };
     }
 

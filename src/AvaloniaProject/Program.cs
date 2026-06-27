@@ -54,11 +54,13 @@ internal sealed class Program
 
         // ViewModels — resolved via Splat, dependencies injected via constructor
         Locator.CurrentMutable.RegisterLazySingleton<MainViewModel>(() =>
-            new MainViewModel(Locator.Current.GetServices<PageViewModel>()));
+            new MainViewModel(Locator.Current.GetServices<IPageViewModel>()));
 
         Locator.CurrentMutable.RegisterLazySingleton<MainWindowViewModel>(() =>
             new MainWindowViewModel(
-                Locator.Current.GetService<MainViewModel>()!
+                Locator.Current.GetService<MainViewModel>()
+                ?? throw new InvalidOperationException(
+                    "MainViewModel is not registered. Ensure RegisterServices() is called first.")
             ));
     }
 

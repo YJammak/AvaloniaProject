@@ -25,11 +25,6 @@ public partial class MainWindow : ReactiveUrsaWindow<MainWindowViewModel>
         InitializeComponent();
 
         SetLanguageSelector(_localization.CurrentCulture.Name);
-        EventHandler? cultureChangedHandler = (_, _) =>
-            SetLanguageSelector(_localization.CurrentCulture.Name);
-        _localization.CultureChanged += cultureChangedHandler;
-
-        Closed += (_, _) => { _localization.CultureChanged -= cultureChangedHandler; };
 
         this.WhenActivated(OnWhenActivated);
     }
@@ -40,6 +35,12 @@ public partial class MainWindow : ReactiveUrsaWindow<MainWindowViewModel>
                 ViewModel,
                 vm => vm.MainView,
                 v => v.ViewModelViewHost.ViewModel)
+            .DisposeWith(disposable);
+
+        EventHandler handler = (_, _) =>
+            SetLanguageSelector(_localization.CurrentCulture.Name);
+        _localization.CultureChanged += handler;
+        Disposable.Create(() => _localization.CultureChanged -= handler)
             .DisposeWith(disposable);
     }
 

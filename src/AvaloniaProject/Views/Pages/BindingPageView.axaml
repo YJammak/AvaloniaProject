@@ -1,4 +1,4 @@
-﻿<u:ReactiveUrsaView
+<u:ReactiveUrsaView
     x:Class="AvaloniaProject.Views.Pages.BindingPageView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -8,6 +8,7 @@
     xmlns:ap="https://yjammak.net/avalonia-project"
     Margin="10,10,0,10"
     x:TypeArguments="ap:BindingPageViewModel"
+    x:DataType="ap:BindingPageViewModel"
     d:DesignWidth="800"
     d:DesignHeight="600"
     Background="{DynamicResource BorderCardBackground}"
@@ -40,14 +41,14 @@
                             Width="70"
                             VerticalAlignment="Center"
                             Text="{Binding [BindingPage_Label_Input], Source={x:Static ap:LocalizationSource.Instance}}" />
-                        <TextBox x:Name="InputTextBox" Width="220" />
+                        <TextBox Width="220" Text="{Binding InputText}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <TextBlock
                             Width="70"
                             VerticalAlignment="Center"
                             Text="{Binding [BindingPage_Label_Output], Source={x:Static ap:LocalizationSource.Instance}}" />
-                        <TextBlock x:Name="InputDisplayText" VerticalAlignment="Center" />
+                        <TextBlock VerticalAlignment="Center" Text="{Binding InputText}" />
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -65,20 +66,20 @@
                         Orientation="Horizontal"
                         Spacing="8">
                         <Button
-                            x:Name="DecrementButton"
                             Width="40"
-                            Content=" - " />
+                            Content=" - "
+                            Command="{Binding DecrementCommand}" />
                         <TextBlock
-                            x:Name="CounterValueText"
                             Width="60"
                             VerticalAlignment="Center"
                             TextAlignment="Center"
-                            FontSize="16" />
+                            FontSize="16"
+                            Text="{Binding Counter}" />
                         <Button
-                            x:Name="IncrementButton"
                             Width="40"
-                            Content=" + " />
-                        <Button x:Name="ResetButton" Content="{Binding [BindingPage_Button_Reset], Source={x:Static ap:LocalizationSource.Instance}}" />
+                            Content=" + "
+                            Command="{Binding IncrementCommand}" />
+                        <Button Content="{Binding [BindingPage_Button_Reset], Source={x:Static ap:LocalizationSource.Instance}}" Command="{Binding ResetCommand}" />
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -92,12 +93,12 @@
                         Text="{Binding [BindingPage_BoolBind_Title], Source={x:Static ap:LocalizationSource.Instance}}" />
                     <TextBlock TextWrapping="Wrap" Text="{Binding [BindingPage_BoolBind_Description], Source={x:Static ap:LocalizationSource.Instance}}" />
                     <CheckBox
-                        x:Name="ToggledCheckBox"
                         Margin="0,4,0,0"
+                        IsChecked="{Binding IsToggled}"
                         Content="{Binding [BindingPage_CheckBox_IsToggled], Source={x:Static ap:LocalizationSource.Instance}}" />
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <TextBlock VerticalAlignment="Center" Text="{Binding [BindingPage_Label_Status], Source={x:Static ap:LocalizationSource.Instance}}" />
-                        <TextBlock x:Name="ToggledStatusText" VerticalAlignment="Center" />
+                        <TextBlock VerticalAlignment="Center" Text="{Binding StatusText}" />
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -115,16 +116,16 @@
                         Orientation="Horizontal"
                         Spacing="8">
                         <Button
-                            x:Name="AddRecordButton"
                             Width="40"
-                            Content=" + " />
+                            Content=" + "
+                            Command="{Binding AddRecordCommand}" />
                         <Button
-                            x:Name="RemoveRecordButton"
                             Width="40"
-                            Content=" - " />
-                        <Button x:Name="ResetRecordButton" Content="{Binding [BindingPage_Button_Reset], Source={x:Static ap:LocalizationSource.Instance}}" />
+                            Content=" - "
+                            Command="{Binding RemoveRecordCommand}" />
+                        <Button Content="{Binding [BindingPage_Button_Reset], Source={x:Static ap:LocalizationSource.Instance}}" Command="{Binding ResetRecordCommand}" />
                     </StackPanel>
-                    <ListBox x:Name="RecordsListBox" Height="120">
+                    <ListBox Height="120" ItemsSource="{Binding Records}">
                         <ListBox.ItemTemplate>
                             <DataTemplate DataType="x:String">
                                 <TextBlock Text="{Binding}" />

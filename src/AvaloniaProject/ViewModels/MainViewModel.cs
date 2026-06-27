@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Disposables;
@@ -10,14 +9,14 @@ namespace AvaloniaProject.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
-    private readonly List<PageViewModel> _pages;
+    private readonly List<IPageViewModel> _pages;
 
-    public IEnumerable<PageViewModel> Pages => _pages;
+    public IEnumerable<IPageViewModel> Pages => _pages;
 
     [Reactive]
-    public partial PageViewModel? SelectedPage { get; set; }
+    public partial IPageViewModel? SelectedPage { get; set; }
 
-    public MainViewModel(IEnumerable<PageViewModel> pages)
+    public MainViewModel(IEnumerable<IPageViewModel> pages)
     {
         _pages = pages.OrderBy(p => p.Index).ToList();
     }
