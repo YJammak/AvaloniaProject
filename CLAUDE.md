@@ -136,6 +136,8 @@ Register(() => new NewPageViewModel());
 5. Add localization keys to `Resources/Strings.resx` and `Strings.zh-Hans.resx`:
    - `Page_New` — display name for the NavMenu
 
+> If the page needs form validation, see **Adding a Page with Validation** below for ReactiveUI.Validation patterns and known API traps.
+
 ## Adding a New Service
 
 1. Create the interface in `Services/` (e.g., `IMyService.cs`)
@@ -145,6 +147,66 @@ Register(() => new NewPageViewModel());
 Locator.CurrentMutable.RegisterConstant<IMyService>(new MyService());
 ```
 4. Inject via constructor in ViewModels that need it
+
+## Adding a Page with Validation
+
+When using `ReactiveUI.Validation`, several patterns and pitfalls apply:
+
+### Validation Rules
+- `ValidationRule` message parameter only accepts `string` (eager), **not** `Func<string>`. Messages are set once at registration time and won't auto-update on language switch.
+- Validator predicates must accept `string?` (not `string`) to match `Func<string?, bool>` and avoid nullable warnings.
+- Extract validation predicates as `private static bool IsValidXxx(string? value)` methods so they can be reused in both `ValidationRule` (constructor) and per-field error sync (OnWhenActivatedAsync).
+
+### Per-Field Error Display
+- `ValidationContext.Text` is `IValidationText` (implements `IReadOnlyList<string>`), **not** `string` — cannot bind directly in AXAML.
+- `ValidationContext` does **not** implement `INotifyDataErrorInfo` — cannot use Avalonia's built-in validation error display.
+- To retrieve per-property errors from `ValidationContext.Validations`: cast to avoid `ImmutableArray<T>` extension method conflicts: `foreach (var c in ValidationContext.Validations) { if (c.PropertyName == name && !c.IsValid) { ... } }`
+- **Recommended pattern**: create `[Reactive]` properties for each field's error text and visibility, sync via `WhenAnyValue` using the same validation predicates:
+
+```csharp
+[Reactive] public partial string UsernameError { get; private set; }
+[Reactive] public partial bool HasUsernameError { get; private set; }
+
+// In OnWhenActivatedAsync:
+this.WhenAnyValue(x => x.Username)
+    .Subscribe(name => {
+        var valid = IsValidUsername(name);
+        UsernameError = valid ? string.Empty : Localization["Username_Error"];
+        HasUsernameError = !valid;
+    })
+    .DisposeWith(disposable);
+```
+
+### Cross-Property Validation
+- When field A's validity depends on field B, observe B's `WhenAnyValue` and also update A's error. Example: ConfirmPassword must match Password — the Password subscription calls both `SetFieldError(IsValidPassword(...))` AND re-checks ConfirmPassword.
+
+### Language Switch
+- Error messages from `Localization["key"]` are eagerly captured in `WhenAnyValue` handlers. Add a `CultureChanged` subscription that calls a `RefreshAllFieldErrors()` method to re-evaluate all fields with the new locale:
+
+```csharp
+Observable.FromEventPattern(
+    h => Localization.CultureChanged += h,
+    h => Localization.CultureChanged -= h)
+    .Subscribe(_ => RefreshAllFieldErrors())
+    .DisposeWith(disposable);
+```
+
+### Submit Button
+- Bind `IsEnabled="{Binding IsFormValid}"` on the Submit button (sync `IsFormValid` from `ValidationContext.WhenAnyValue(x => x.IsValid)`).
+
+### AXAML Layout
+- Error text in horizontal StackPanel with label: add `TextWrapping="Wrap"` to handle long messages.
+- Theme colors: `{DynamicResource SemiColorDanger}` for errors, `{DynamicResource SemiColorSuccess}` for success.
+- Remove `MaxWidth` constraint to prevent horizontal clipping.
+
+### ReactiveUI.Validation API Traps
+| Trap | Fix |
+|---|---|
+| `IValidationText` not `string` | Mirror to `[Reactive] string` property |
+| No `INotifyDataErrorInfo` implementation | Manual `WhenAnyValue` sync |
+| `ImmutableArray<T>.Where()` conflicts | Use `foreach` or explicit cast |
+| `Func<TValue, bool>` expects `TValue?` | Use `string?` parameter |
+| Message is `string` not `Func<string>` | Use `CultureChanged` to refresh |
 
 ## Key Conventions
 

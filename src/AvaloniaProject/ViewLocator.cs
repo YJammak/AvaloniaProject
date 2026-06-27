@@ -18,6 +18,7 @@ public class ViewLocator : IDataTemplate
         [typeof(AboutViewModel)] = () => new AboutView(),
         [typeof(HomePageViewModel)] = () => new HomePageView(),
         [typeof(BindingPageViewModel)] = () => new BindingPageView(),
+        [typeof(ValidationPageViewModel)] = () => new ValidationPageView(),
     };
 
     public Control? Build(object? param)

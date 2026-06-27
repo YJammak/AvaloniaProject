@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/doc/">
+    <File Path="../CLAUDE.md" />
     <File Path="../README.md" />
   </Folder>
   <Project Path="AvaloniaProject/AvaloniaProject.csproj" />

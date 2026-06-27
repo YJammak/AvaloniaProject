@@ -1,0 +1,132 @@
+<u:ReactiveUrsaView
+    x:Class="AvaloniaProject.Views.Pages.ValidationPageView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:u="https://irihi.tech/ursa"
+    xmlns:ap="https://yjammak.net/avalonia-project"
+    Margin="10,10,0,10"
+    x:TypeArguments="ap:ValidationPageViewModel"
+    x:DataType="ap:ValidationPageViewModel"
+    d:DesignWidth="800"
+    d:DesignHeight="450"
+    Background="{DynamicResource BorderCardBackground}"
+    mc:Ignorable="d">
+    <ScrollViewer
+        Classes.InsetContent="True"
+        HorizontalScrollBarVisibility="Disabled"
+        VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="0,0,10,10" Spacing="24">
+            <!-- Header -->
+            <StackPanel Spacing="12">
+                <TextBlock
+                    Theme="{StaticResource TitleTextBlock}"
+                    Classes="H4"
+                    Text="{Binding [Validation_Title], Source={x:Static ap:LocalizationSource.Instance}}" />
+                <TextBlock TextWrapping="Wrap" Text="{Binding [Validation_Description], Source={x:Static ap:LocalizationSource.Instance}}" />
+            </StackPanel>
+
+            <!-- Form -->
+            <Border Padding="24,20">
+                <StackPanel Spacing="16">
+
+                    <!-- Success banner -->
+                    <Border
+                        Padding="12,10"
+                        Background="Transparent"
+                        CornerRadius="4"
+                        IsVisible="{Binding HasFormResult}">
+                        <TextBlock
+                            TextWrapping="Wrap"
+                            Foreground="{DynamicResource SemiColorSuccess}"
+                            Text="{Binding FormResult}" />
+                    </Border>
+
+                    <!-- Username -->
+                    <StackPanel Spacing="4">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock
+                                FontWeight="Medium"
+                                Text="{Binding [Validation_Label_Username], Source={x:Static ap:LocalizationSource.Instance}}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="13"
+                                TextWrapping="Wrap"
+                                Foreground="{DynamicResource SemiColorDanger}"
+                                IsVisible="{Binding HasUsernameError}"
+                                Text="{Binding UsernameError}" />
+                        </StackPanel>
+                        <TextBox PlaceholderText="{Binding [Validation_Placeholder_Username], Source={x:Static ap:LocalizationSource.Instance}}" Text="{Binding Username}" />
+                    </StackPanel>
+
+                    <!-- Email -->
+                    <StackPanel Spacing="4">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock
+                                FontWeight="Medium"
+                                Text="{Binding [Validation_Label_Email], Source={x:Static ap:LocalizationSource.Instance}}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="13"
+                                TextWrapping="Wrap"
+                                Foreground="{DynamicResource SemiColorDanger}"
+                                IsVisible="{Binding HasEmailError}"
+                                Text="{Binding EmailError}" />
+                        </StackPanel>
+                        <TextBox PlaceholderText="{Binding [Validation_Placeholder_Email], Source={x:Static ap:LocalizationSource.Instance}}" Text="{Binding Email}" />
+                    </StackPanel>
+
+                    <!-- Password -->
+                    <StackPanel Spacing="4">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock
+                                FontWeight="Medium"
+                                Text="{Binding [Validation_Label_Password], Source={x:Static ap:LocalizationSource.Instance}}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="13"
+                                TextWrapping="Wrap"
+                                Foreground="{DynamicResource SemiColorDanger}"
+                                IsVisible="{Binding HasPasswordError}"
+                                Text="{Binding PasswordError}" />
+                        </StackPanel>
+                        <TextBox
+                            PasswordChar="*"
+                            PlaceholderText="{Binding [Validation_Placeholder_Password], Source={x:Static ap:LocalizationSource.Instance}}"
+                            Text="{Binding Password}" />
+                    </StackPanel>
+
+                    <!-- Confirm Password -->
+                    <StackPanel Spacing="4">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock
+                                FontWeight="Medium"
+                                Text="{Binding [Validation_Label_ConfirmPassword], Source={x:Static ap:LocalizationSource.Instance}}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="13"
+                                TextWrapping="Wrap"
+                                Foreground="{DynamicResource SemiColorDanger}"
+                                IsVisible="{Binding HasConfirmPasswordError}"
+                                Text="{Binding ConfirmPasswordError}" />
+                        </StackPanel>
+                        <TextBox
+                            PasswordChar="*"
+                            PlaceholderText="{Binding [Validation_Placeholder_ConfirmPassword], Source={x:Static ap:LocalizationSource.Instance}}"
+                            Text="{Binding ConfirmPassword}" />
+                    </StackPanel>
+
+                    <!-- Buttons -->
+                    <StackPanel Margin="0,8,0,0" Orientation="Horizontal" Spacing="12">
+                        <Button Command="{Binding SubmitCommand}" IsEnabled="{Binding IsFormValid}" Content="{Binding [Validation_Button_Submit], Source={x:Static ap:LocalizationSource.Instance}}" />
+                        <Button
+                            Classes="Tertiary"
+                            Command="{Binding ResetCommand}"
+                            Content="{Binding [BindingPage_Button_Reset], Source={x:Static ap:LocalizationSource.Instance}}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</u:ReactiveUrsaView>

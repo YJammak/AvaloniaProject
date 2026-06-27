@@ -133,6 +133,9 @@
     <data name="Page_Binding" xml:space="preserve">
         <value>绑定</value>
     </data>
+    <data name="Page_Validation" xml:space="preserve">
+        <value>验证</value>
+    </data>
     <data name="HomePage_Content" xml:space="preserve">
         <value># 欢迎使用 AvaloniaProject！
 
@@ -183,6 +186,54 @@
     </data>
     <data name="BindingPage_ListBind_Description" xml:space="preserve">
         <value>按钮与 ViewModel 中的 ReactiveCommand 绑定。列表通过 OneWayBind 与 ViewModel 中可观察列表绑定。点击按钮可以增加、减少或重置记录。</value>
+    </data>
+    <data name="Validation_Title" xml:space="preserve">
+        <value>ReactiveUI 表单验证</value>
+    </data>
+    <data name="Validation_Description" xml:space="preserve">
+        <value>演示 ReactiveUI.Validation 的表单验证。每个字段都有规则——尝试提交无效数据以查看错误消息，修正后错误会实时清除。</value>
+    </data>
+    <data name="Validation_Label_Username" xml:space="preserve">
+        <value>用户名</value>
+    </data>
+    <data name="Validation_Placeholder_Username" xml:space="preserve">
+        <value>至少 3 个字符</value>
+    </data>
+    <data name="Validation_Username_Error" xml:space="preserve">
+        <value>用户名需为 3–20 个字符（字母、数字、-、_）。</value>
+    </data>
+    <data name="Validation_Label_Email" xml:space="preserve">
+        <value>邮箱</value>
+    </data>
+    <data name="Validation_Placeholder_Email" xml:space="preserve">
+        <value>user@example.com</value>
+    </data>
+    <data name="Validation_Email_Error" xml:space="preserve">
+        <value>请输入有效的邮箱地址（如 user@example.com）。</value>
+    </data>
+    <data name="Validation_Label_Password" xml:space="preserve">
+        <value>密码</value>
+    </data>
+    <data name="Validation_Placeholder_Password" xml:space="preserve">
+        <value>至少 8 个字符，含大小写字母和数字</value>
+    </data>
+    <data name="Validation_Password_Error" xml:space="preserve">
+        <value>密码至少 8 个字符，且包含大写字母、小写字母和数字。</value>
+    </data>
+    <data name="Validation_Label_ConfirmPassword" xml:space="preserve">
+        <value>确认密码</value>
+    </data>
+    <data name="Validation_Placeholder_ConfirmPassword" xml:space="preserve">
+        <value>请再次输入密码</value>
+    </data>
+    <data name="Validation_ConfirmPassword_Error" xml:space="preserve">
+        <value>两次输入的密码不一致。</value>
+    </data>
+    <data name="Validation_Button_Submit" xml:space="preserve">
+        <value>提交</value>
+    </data>
+    <data name="Validation_Submit_Success" xml:space="preserve">
+        <value>注册成功！欢迎你，{0}。</value>
     </data>
 </root>
 

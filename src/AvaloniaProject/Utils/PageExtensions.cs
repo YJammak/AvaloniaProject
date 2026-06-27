@@ -11,6 +11,7 @@ public static class PageExtensions
     {
         Register(() => new HomePageViewModel());
         Register(() => new BindingPageViewModel());
+        Register(() => new ValidationPageViewModel());
         return builder;
     }
 

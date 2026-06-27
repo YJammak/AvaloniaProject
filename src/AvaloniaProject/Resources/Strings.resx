@@ -133,6 +133,9 @@
     <data name="Page_Binding" xml:space="preserve">
         <value>Binding</value>
     </data>
+    <data name="Page_Validation" xml:space="preserve">
+        <value>Validation</value>
+    </data>
     <data name="HomePage_Content" xml:space="preserve">
         <value># Welcome to AvaloniaProject!
 
@@ -183,6 +186,54 @@ Use the **title bar** controls to switch languages or toggle the theme.</value>
     </data>
     <data name="BindingPage_ListBind_Description" xml:space="preserve">
         <value>Buttons are bound to ReactiveCommands in the ViewModel. The list is bound to an observable collection in the ViewModel via OneWayBind. Click the buttons to add, remove, or reset records.</value>
+    </data>
+    <data name="Validation_Title" xml:space="preserve">
+        <value>ReactiveUI Validation</value>
+    </data>
+    <data name="Validation_Description" xml:space="preserve">
+        <value>Demonstrates form validation with ReactiveUI.Validation. Each field has rules — try submitting with invalid data to see error messages. Corrections clear errors in real time.</value>
+    </data>
+    <data name="Validation_Label_Username" xml:space="preserve">
+        <value>Username</value>
+    </data>
+    <data name="Validation_Placeholder_Username" xml:space="preserve">
+        <value>At least 3 characters</value>
+    </data>
+    <data name="Validation_Username_Error" xml:space="preserve">
+        <value>Username must be 3–20 characters (letters, digits, -, _).</value>
+    </data>
+    <data name="Validation_Label_Email" xml:space="preserve">
+        <value>Email</value>
+    </data>
+    <data name="Validation_Placeholder_Email" xml:space="preserve">
+        <value>user@example.com</value>
+    </data>
+    <data name="Validation_Email_Error" xml:space="preserve">
+        <value>Please enter a valid email (e.g., user@example.com).</value>
+    </data>
+    <data name="Validation_Label_Password" xml:space="preserve">
+        <value>Password</value>
+    </data>
+    <data name="Validation_Placeholder_Password" xml:space="preserve">
+        <value>Min. 8 characters, uppercase + lowercase + digit</value>
+    </data>
+    <data name="Validation_Password_Error" xml:space="preserve">
+        <value>Password must be at least 8 characters with an uppercase letter, a lowercase letter, and a digit.</value>
+    </data>
+    <data name="Validation_Label_ConfirmPassword" xml:space="preserve">
+        <value>Confirm Password</value>
+    </data>
+    <data name="Validation_Placeholder_ConfirmPassword" xml:space="preserve">
+        <value>Re-enter your password</value>
+    </data>
+    <data name="Validation_ConfirmPassword_Error" xml:space="preserve">
+        <value>Passwords do not match.</value>
+    </data>
+    <data name="Validation_Button_Submit" xml:space="preserve">
+        <value>Submit</value>
+    </data>
+    <data name="Validation_Submit_Success" xml:space="preserve">
+        <value>Registration successful! Welcome, {0}.</value>
     </data>
 </root>
 
