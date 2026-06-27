@@ -1,4 +1,4 @@
-﻿<u:ReactiveUrsaView
+<u:ReactiveUrsaView
     x:Class="AvaloniaProject.Views.Pages.HomePageView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -7,13 +7,16 @@
     xmlns:u="https://irihi.tech/ursa"
     xmlns:ap="https://yjammak.net/avalonia-project"
     xmlns:md="using:LiveMarkdown.Avalonia"
-    Margin="10,0"
+    Margin="10,10,0,10"
     x:TypeArguments="ap:HomePageViewModel"
     d:DesignWidth="800"
     d:DesignHeight="450"
     Background="{DynamicResource BorderCardBackground}"
     mc:Ignorable="d">
-    <StackPanel>
+    <ScrollViewer
+        Classes.InsetContent="True"
+        HorizontalScrollBarVisibility="Disabled"
+        VerticalScrollBarVisibility="Auto">
         <md:MarkdownRenderer x:Name="MarkdownRenderer">
             <md:MarkdownRenderer.Styles>
                 <Styles>
@@ -38,5 +41,5 @@
                 </Styles>
             </md:MarkdownRenderer.Styles>
         </md:MarkdownRenderer>
-    </StackPanel>
+    </ScrollViewer>
 </u:ReactiveUrsaView>

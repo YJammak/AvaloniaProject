@@ -4,6 +4,10 @@ using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
+using Avalonia.Threading;
+using Avalonia.VisualTree;
 using AvaloniaProject.Services;
 using AvaloniaProject.ViewModels.Pages;
 using LiveMarkdown.Avalonia;
@@ -63,5 +67,36 @@ public partial class HomePageView : ReactiveUrsaView<HomePageViewModel>
     {
         _markdownBuilder.Clear();
         _markdownBuilder.AppendLine(_localization["HomePage_Content"]);
+
+        // Run after layout completes so the markdown visual tree is built
+        Dispatcher.UIThread.Post(FixCodeBlockStyling, DispatcherPriority.Background);
+    }
+
+    /// <summary>
+    /// Walk the visual tree and strip hardcoded dark backgrounds from code elements
+    /// so inline code and code blocks render correctly in light theme.
+    /// </summary>
+    private void FixCodeBlockStyling()
+    {
+        foreach (var child in MarkdownRenderer.GetVisualDescendants())
+        {
+            switch (child)
+            {
+                case Border border when border.Background is ISolidColorBrush bg:
+                {
+                    var luminance = (0.299 * bg.Color.R + 0.587 * bg.Color.G + 0.114 * bg.Color.B) / 255.0;
+                    if (luminance < 0.3 && bg.Color.A > 0)
+                        border.Background = Brushes.Transparent;
+                    break;
+                }
+                case TextBlock textBlock when textBlock.Background is ISolidColorBrush fg:
+                {
+                    var luminance = (0.299 * fg.Color.R + 0.587 * fg.Color.G + 0.114 * fg.Color.B) / 255.0;
+                    if (luminance < 0.3 && fg.Color.A > 0)
+                        textBlock.Background = Brushes.Transparent;
+                    break;
+                }
+            }
+        }
     }
 }

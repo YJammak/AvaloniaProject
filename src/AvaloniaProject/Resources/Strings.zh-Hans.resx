@@ -135,12 +135,45 @@
     </data>
     <data name="HomePage_Content" xml:space="preserve">
         <value># 欢迎使用 AvaloniaProject！
-#### 这是一个示例 Avalonia 应用，集成了多个框架与库，可作为新项目创建时的参考。
 
-- 使用了 [ReactiveUI](https://github.com/reactiveui/ReactiveUI) MVVM 框架。
-- 使用了 [Semi.Avalonia](https://github.com/irihitech/Semi.Avalonia) 与 [Ursa.Avalonia](https://github.com/irihitech/Ursa.Avalonia) 主题。
-- 使用了[Optris.Icons.Avalonia](https://github.com/Optris/Optris.Icons.Avalonia) 的 Material Design 图标。
-- 使用 AOT 发布。</value>
+一个现代化的 Avalonia UI 桌面应用，展示 MVVM 架构、AOT 编译和实时国际化。
+
+---
+
+## 技术栈
+
+| 类别 | 库 |
+|---|---|
+| UI 框架 | [Avalonia 12.0](https://avaloniaui.net/) |
+| MVVM | [ReactiveUI](https://reactiveui.net/) + 源码生成器 |
+| 依赖注入 | Splat（构造器注入） |
+| 主题 | [Semi.Avalonia](https://github.com/irihitech/Semi.Avalonia) + [Ursa](https://github.com/irihitech/Ursa.Avalonia) |
+| 图标 | [Optris Material Design](https://github.com/Optris/Optris.Icons.Avalonia) |
+| Markdown | [LiveMarkdown.Avalonia](https://github.com/giacomelli/LiveMarkdown.Avalonia) |
+| 日志 | NLog 通过 Splat.NLog |
+| 运行时 | .NET 10 + AOT |
+
+---
+
+## 架构亮点
+
+- **构造器注入** — 所有依赖在组合根（`Program.cs`）统一管理
+- **AOT 安全的 ViewLocator** — 类型字典替代反射
+- **编译绑定** — AXAML `x:DataType` 编译期校验
+- **基于接口** — `ILocalizationService`、`IPageViewModel` 可测试
+- **激活生命周期** — `WhenActivated` / `DisposeWith` 管理事件清理
+- **线程安全的本地化** — `Lazy&lt;T&gt;` + `INotifyPropertyChanged` 驱动 XAML 响应
+
+---
+
+## 探索
+
+使用**左侧导航栏**切换页面：
+
+- **主页** — 当前页面，由 LiveMarkdown 渲染
+- **绑定** — 交互式 ReactiveUI 绑定演示
+
+使用**标题栏**控件切换语言或主题。</value>
     </data>
     <data name="MainWindow_LanguageTooltip" xml:space="preserve">
         <value>简体中文</value>

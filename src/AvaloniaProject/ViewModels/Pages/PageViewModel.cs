@@ -1,7 +1,4 @@
 using System;
-using System.Reactive.Disposables;
-using System.Reactive.Disposables.Fluent;
-using System.Threading.Tasks;
 using AvaloniaProject.Services;
 using ReactiveUI.SourceGenerators;
 using Splat;
@@ -39,16 +36,9 @@ public abstract partial class PageViewModel : ViewModelBase, IPageViewModel
         Icon = icon;
         Index = index;
         IconSize = iconSize;
-    }
 
-    protected override async Task OnWhenActivatedAsync(CompositeDisposable disposable)
-    {
-        await base.OnWhenActivatedAsync(disposable);
-
-        var nameKey = _nameKey;
-        EventHandler handler = (_, _) => Name = Localization[nameKey];
-        Localization.CultureChanged += handler;
-        Disposable.Create(() => Localization.CultureChanged -= handler)
-            .DisposeWith(disposable);
+        // Permanent subscription — pages live for the app lifetime (held by MainViewModel),
+        // and Name must stay in sync for the NavMenu regardless of activation state.
+        Localization.CultureChanged += (_, _) => Name = Localization[_nameKey];
     }
 }
