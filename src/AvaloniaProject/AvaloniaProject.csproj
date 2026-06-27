@@ -28,31 +28,31 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="12.0.3" />
-        <PackageReference Include="Avalonia.Desktop" Version="12.0.3" />
-        <PackageReference Include="Avalonia.Fonts.Inter" Version="12.0.3" />
-        <PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.1" />
+        <PackageReference Include="Avalonia" Version="12.0.5" />
+        <PackageReference Include="Avalonia.Desktop" Version="12.0.5" />
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="12.0.5" />
+        <PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.3" />
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-        <PackageReference Include="Irihi.Ursa" Version="2.0.0" />
+        <PackageReference Include="Irihi.Ursa" Version="2.0.1" />
         <PackageReference Include="Irihi.Ursa.ReactiveUIExtension" Version="2.0.0" />
-        <PackageReference Include="Irihi.Ursa.Themes.Semi" Version="2.0.0" />
-        <PackageReference Include="LiveMarkdown.Avalonia" Version="2.0.1" />
-        <PackageReference Include="Optris.Icons.Avalonia.MaterialDesign" Version="12.0.6" />
-        <PackageReference Include="ReactiveUI.Avalonia" Version="12.0.1" />
-        <PackageReference Include="ReactiveUI.SourceGenerators" Version="2.6.30">
+        <PackageReference Include="Irihi.Ursa.Themes.Semi" Version="2.0.1" />
+        <PackageReference Include="LiveMarkdown.Avalonia" Version="2.2.0" />
+        <PackageReference Include="Optris.Icons.Avalonia.MaterialDesign" Version="12.0.7" />
+        <PackageReference Include="ReactiveUI.Avalonia" Version="12.0.3" />
+        <PackageReference Include="ReactiveUI.SourceGenerators" Version="3.1.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="ReactiveUI.Validation" Version="7.0.5"/>
-        <PackageReference Include="Semi.Avalonia" Version="12.0.1" />
+        <PackageReference Include="ReactiveUI.Validation" Version="7.1.0" />
+        <PackageReference Include="Semi.Avalonia" Version="12.0.3" />
         <PackageReference Include="Semi.Avalonia.AvaloniaEdit" Version="12.0.0" />
         <PackageReference Include="Semi.Avalonia.DataGrid" Version="12.0.0" />
-        <PackageReference Include="Splat" Version="19.3.1"/>
-        <PackageReference Include="Splat.DependencyInjection.SourceGenerator" Version="2.2.2">
+        <PackageReference Include="Splat" Version="19.4.1" />
+        <PackageReference Include="Splat.DependencyInjection.SourceGenerator" Version="2.3.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Splat.NLog" Version="19.3.1"/>
+        <PackageReference Include="Splat.NLog" Version="19.4.1" />
     </ItemGroup>
 
     <Target Name="RelocateSatelliteAssembliesAfterBuild" AfterTargets="Build">
