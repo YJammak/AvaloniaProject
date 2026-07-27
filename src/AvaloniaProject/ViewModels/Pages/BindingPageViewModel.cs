@@ -55,7 +55,7 @@ public partial class BindingPageViewModel : PageViewModel
             .Connect()
             .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Bind(out _records)
-            .SubscribeSafe(ex => this.Log().Error(ex, "Error binding records list"));
+            .SubscribeSafe(_ => { }, ex => this.Log().Error(ex, "Error binding records list"));
     }
 
     protected override async Task OnWhenActivatedAsync(MultipleDisposable disposable)
@@ -65,8 +65,7 @@ public partial class BindingPageViewModel : PageViewModel
         UpdateStatusText();
 
         this.WhenAnyValue(x => x.IsToggled)
-            .Do(_ => UpdateStatusText())
-            .SubscribeSafe(ex => this.Log().Error(ex, "Error updating status text"))
+            .SubscribeSafe(_ => UpdateStatusText(), ex => this.Log().Error(ex, "Error updating status text"))
             .DisposeWith(disposable);
 
         EventHandler cultureHandler = (_, _) => UpdateStatusText();
