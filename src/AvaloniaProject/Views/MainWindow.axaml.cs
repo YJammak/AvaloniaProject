@@ -1,15 +1,14 @@
 using System;
-using System.Reactive.Disposables;
-using System.Reactive.Disposables.Fluent;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using AvaloniaProject.Services;
 using AvaloniaProject.ViewModels;
 using ReactiveUI;
+using ReactiveUI.Primitives.Disposables;
 using Splat;
 using Ursa.Controls;
-using Ursa.ReactiveUIExtension;
+using static ReactiveUI.Primitives.LinqExtensions;
 
 namespace AvaloniaProject.Views;
 
@@ -29,7 +28,7 @@ public partial class MainWindow : ReactiveUrsaWindow<MainWindowViewModel>
         this.WhenActivated(OnWhenActivated);
     }
 
-    private void OnWhenActivated(CompositeDisposable disposable)
+    private void OnWhenActivated(MultipleDisposable disposable)
     {
         this.OneWayBind(
                 ViewModel,
@@ -40,7 +39,7 @@ public partial class MainWindow : ReactiveUrsaWindow<MainWindowViewModel>
         EventHandler handler = (_, _) =>
             SetLanguageSelector(_localization.CurrentCulture.Name);
         _localization.CultureChanged += handler;
-        Disposable.Create(() => _localization.CultureChanged -= handler)
+        new ActionDisposable(() => _localization.CultureChanged -= handler)
             .DisposeWith(disposable);
     }
 

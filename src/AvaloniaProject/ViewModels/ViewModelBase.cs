@@ -1,9 +1,7 @@
 using System;
-using System.Reactive.Disposables;
 using System.Threading.Tasks;
 using ReactiveUI;
-using ReactiveUI.Validation.Abstractions;
-using ReactiveUI.Validation.Contexts;
+using ReactiveUI.Primitives.Disposables;
 using Splat;
 
 namespace AvaloniaProject.ViewModels;
@@ -11,12 +9,12 @@ namespace AvaloniaProject.ViewModels;
 public abstract class ViewModelBase :
     ReactiveObject,
     IActivatableViewModel,
-    IValidatableViewModel,
+    IEnableLogger,
     IDisposable
 {
     protected ViewModelBase()
     {
-        this.WhenActivated(disposable =>
+        this.WhenActivated((MultipleDisposable disposable) =>
         {
             OnWhenActivatedAsync(disposable)
                 .ContinueWith(t =>
@@ -32,12 +30,9 @@ public abstract class ViewModelBase :
     public virtual void Dispose()
     {
         Activator.Dispose();
-        ValidationContext.Dispose();
     }
 
-    public IValidationContext ValidationContext { get; } = new ValidationContext();
-
-    protected virtual Task OnWhenActivatedAsync(CompositeDisposable disposable)
+    protected virtual Task OnWhenActivatedAsync(MultipleDisposable disposable)
     {
         return Task.CompletedTask;
     }

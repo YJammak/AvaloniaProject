@@ -1,13 +1,13 @@
 using System;
 using System.Linq;
-using System.Reactive.Disposables;
-using System.Reactive.Disposables.Fluent;
-using System.Reactive.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using ReactiveUI;
+using ReactiveUI.Primitives.Disposables;
 using ReactiveUI.SourceGenerators;
-using ReactiveUI.Validation.Extensions;
+using Splat;
+using static ReactiveUI.Primitives.LinqExtensions;
+using RxVoid = ReactiveUI.Primitives.RxVoid;
 
 namespace AvaloniaProject.ViewModels.Pages;
 
@@ -49,6 +49,9 @@ public partial class ValidationPageViewModel : PageViewModel
 
     public bool HasFormResult => !string.IsNullOrWhiteSpace(FormResult);
 
+    public ReactiveCommand<RxVoid, RxVoid> SubmitCommand { get; }
+    public ReactiveCommand<RxVoid, RxVoid> ResetCommand { get; }
+
     [Reactive]
     public partial string UsernameError { get; private set; }
 
@@ -89,29 +92,11 @@ public partial class ValidationPageViewModel : PageViewModel
         PasswordError = string.Empty;
         ConfirmPasswordError = string.Empty;
 
-        // ── Field validators ──
-        this.ValidationRule(
-            vm => vm.Username,
-            IsValidUsername,
-            Localization["Validation_Username_Error"]);
-
-        this.ValidationRule(
-            vm => vm.Email,
-            IsValidEmail,
-            Localization["Validation_Email_Error"]);
-
-        this.ValidationRule(
-            vm => vm.Password,
-            IsValidPassword,
-            Localization["Validation_Password_Error"]);
-
-        this.ValidationRule(
-            vm => vm.ConfirmPassword,
-            confirm => string.IsNullOrWhiteSpace(confirm) || confirm == Password,
-            Localization["Validation_ConfirmPassword_Error"]);
+        SubmitCommand = ReactiveCommand.Create(Submit);
+        ResetCommand = ReactiveCommand.Create(Reset);
     }
 
-    protected override async Task OnWhenActivatedAsync(CompositeDisposable disposable)
+    protected override async Task OnWhenActivatedAsync(MultipleDisposable disposable)
     {
         await base.OnWhenActivatedAsync(disposable);
 
@@ -121,32 +106,35 @@ public partial class ValidationPageViewModel : PageViewModel
                 x => x.Email,
                 x => x.Password,
                 x => x.ConfirmPassword)
-            .Do(_ => FormResult = string.Empty)
-            .Subscribe(_ => { })
+            .SubscribeSafe(_ => FormResult = string.Empty,
+                ex => this.Log().Error(ex, "Error resetting form result"))
             .DisposeWith(disposable);
 
         // Sync HasFormResult for XAML visibility
         this.WhenAnyValue(x => x.FormResult)
-            .Subscribe(_ => this.RaisePropertyChanged(nameof(HasFormResult)))
+            .SubscribeSafe(_ => this.RaisePropertyChanged(nameof(HasFormResult)),
+                ex => this.Log().Error(ex, "Error updating HasFormResult"))
             .DisposeWith(disposable);
 
         // Per-field error sync using the same predicates as the validators
         this.WhenAnyValue(x => x.Username)
-            .Subscribe(name => SetFieldError(
+            .SubscribeSafe(name => SetFieldError(
                 IsValidUsername(name), ref _usernameError,
                 Localization["Validation_Username_Error"],
-                v => UsernameError = v, v => HasUsernameError = v))
+                v => UsernameError = v, v => HasUsernameError = v),
+                ex => this.Log().Error(ex, "Error validating username"))
             .DisposeWith(disposable);
 
         this.WhenAnyValue(x => x.Email)
-            .Subscribe(email => SetFieldError(
+            .SubscribeSafe(email => SetFieldError(
                 IsValidEmail(email), ref _emailError,
                 Localization["Validation_Email_Error"],
-                v => EmailError = v, v => HasEmailError = v))
+                v => EmailError = v, v => HasEmailError = v),
+                ex => this.Log().Error(ex, "Error validating email"))
             .DisposeWith(disposable);
 
         this.WhenAnyValue(x => x.Password)
-            .Subscribe(pwd =>
+            .SubscribeSafe(pwd =>
             {
                 SetFieldError(
                     IsValidPassword(pwd), ref _passwordError,
@@ -159,26 +147,35 @@ public partial class ValidationPageViewModel : PageViewModel
                     ref _confirmPasswordError,
                     Localization["Validation_ConfirmPassword_Error"],
                     v => ConfirmPasswordError = v, v => HasConfirmPasswordError = v);
-            })
+            }, ex => this.Log().Error(ex, "Error validating password"))
             .DisposeWith(disposable);
 
         this.WhenAnyValue(x => x.ConfirmPassword)
-            .Subscribe(confirm => SetFieldError(
+            .SubscribeSafe(confirm => SetFieldError(
                 string.IsNullOrWhiteSpace(confirm) || confirm == Password,
                 ref _confirmPasswordError,
                 Localization["Validation_ConfirmPassword_Error"],
-                v => ConfirmPasswordError = v, v => HasConfirmPasswordError = v))
+                v => ConfirmPasswordError = v, v => HasConfirmPasswordError = v),
+                ex => this.Log().Error(ex, "Error validating confirm password"))
             .DisposeWith(disposable);
 
         // Re-evaluate all field errors when language changes (error messages are localized)
-        Observable.FromEventPattern(
-                h => Localization.CultureChanged += h,
-                h => Localization.CultureChanged -= h)
-            .Subscribe(_ => RefreshAllFieldErrors())
+        EventHandler cultureHandler = (_, _) => RefreshAllFieldErrors();
+        Localization.CultureChanged += cultureHandler;
+        new ActionDisposable(() => Localization.CultureChanged -= cultureHandler)
             .DisposeWith(disposable);
 
-        ValidationContext.WhenAnyValue(x => x.IsValid)
-            .Subscribe(valid => IsFormValid = valid)
+        // Compute IsFormValid from all four field predicates
+        this.WhenAnyValue(
+                x => x.Username,
+                x => x.Email,
+                x => x.Password,
+                x => x.ConfirmPassword,
+                (username, email, pwd, confirm) =>
+                    IsValidUsername(username) && IsValidEmail(email) && IsValidPassword(pwd) &&
+                    !string.IsNullOrWhiteSpace(confirm) && confirm == pwd)
+            .SubscribeSafe(valid => IsFormValid = valid,
+                ex => this.Log().Error(ex, "Error computing form validity"))
             .DisposeWith(disposable);
     }
 
@@ -218,16 +215,14 @@ public partial class ValidationPageViewModel : PageViewModel
     private string _passwordError = string.Empty;
     private string _confirmPasswordError = string.Empty;
 
-    [ReactiveCommand]
     private void Submit()
     {
-        if (!ValidationContext.IsValid)
+        if (!IsFormValid)
             return;
 
         FormResult = string.Format(Localization["Validation_Submit_Success"], Username);
     }
 
-    [ReactiveCommand]
     private void Reset()
     {
         Username = string.Empty;

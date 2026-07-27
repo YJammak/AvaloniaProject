@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive.Disposables;
 using System.Threading.Tasks;
 using AvaloniaProject.ViewModels.Pages;
+using ReactiveUI.Primitives.Disposables;
 using ReactiveUI.SourceGenerators;
 
 namespace AvaloniaProject.ViewModels;
@@ -21,7 +21,7 @@ public partial class MainViewModel : ViewModelBase
         _pages = pages.OrderBy(p => p.Index).ToList();
     }
 
-    protected override async Task OnWhenActivatedAsync(CompositeDisposable disposable)
+    protected override async Task OnWhenActivatedAsync(MultipleDisposable disposable)
     {
         await base.OnWhenActivatedAsync(disposable);
         SelectedPage = _pages.FirstOrDefault();

@@ -1,4 +1,4 @@
-﻿<u:ReactiveUrsaView
+﻿<ap:ReactiveUrsaView
     x:Class="AvaloniaProject.Views.AboutView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -51,4 +51,4 @@
             </Border>
         </Border>
     </Panel>
-</u:ReactiveUrsaView>
+</ap:ReactiveUrsaView>
