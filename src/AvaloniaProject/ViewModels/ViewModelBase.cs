@@ -1,7 +1,7 @@
 using System;
-using System.Reactive.Disposables;
 using System.Threading.Tasks;
 using ReactiveUI;
+using ReactiveUI.Primitives.Disposables;
 using ReactiveUI.Validation.Abstractions;
 using ReactiveUI.Validation.Contexts;
 using Splat;
@@ -16,7 +16,7 @@ public abstract class ViewModelBase :
 {
     protected ViewModelBase()
     {
-        this.WhenActivated(disposable =>
+        this.WhenActivated((MultipleDisposable disposable) =>
         {
             OnWhenActivatedAsync(disposable)
                 .ContinueWith(t =>
@@ -37,7 +37,7 @@ public abstract class ViewModelBase :
 
     public IValidationContext ValidationContext { get; } = new ValidationContext();
 
-    protected virtual Task OnWhenActivatedAsync(CompositeDisposable disposable)
+    protected virtual Task OnWhenActivatedAsync(MultipleDisposable disposable)
     {
         return Task.CompletedTask;
     }

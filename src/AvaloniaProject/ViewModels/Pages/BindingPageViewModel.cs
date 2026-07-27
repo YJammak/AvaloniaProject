@@ -1,12 +1,12 @@
 using System;
 using System.Collections.ObjectModel;
-using System.Reactive.Disposables;
-using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using DynamicData;
 using ReactiveUI;
+using ReactiveUI.Primitives.Disposables;
 using ReactiveUI.SourceGenerators;
+using static ReactiveUI.Primitives.LinqExtensions;
 
 namespace AvaloniaProject.ViewModels.Pages;
 
@@ -43,7 +43,7 @@ public partial class BindingPageViewModel : PageViewModel
             .Subscribe();
     }
 
-    protected override async Task OnWhenActivatedAsync(CompositeDisposable disposable)
+    protected override async Task OnWhenActivatedAsync(MultipleDisposable disposable)
     {
         await base.OnWhenActivatedAsync(disposable);
 

@@ -1,7 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Reactive.Disposables;
-using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using Avalonia;
 using Avalonia.Controls;
@@ -12,8 +10,10 @@ using AvaloniaProject.Services;
 using AvaloniaProject.ViewModels.Pages;
 using LiveMarkdown.Avalonia;
 using ReactiveUI;
+using ReactiveUI.Primitives.Disposables;
 using Splat;
 using Ursa.ReactiveUIExtension;
+using static ReactiveUI.Primitives.LinqExtensions;
 
 namespace AvaloniaProject.Views.Pages;
 
@@ -36,11 +36,11 @@ public partial class HomePageView : ReactiveUrsaView<HomePageViewModel>
         this.WhenActivated(OnWhenActivated);
     }
 
-    private void OnWhenActivated(CompositeDisposable disposable)
+    private void OnWhenActivated(MultipleDisposable disposable)
     {
         EventHandler handler = (_, _) => UpdateContent();
         _localization.CultureChanged += handler;
-        Disposable.Create(() => _localization.CultureChanged -= handler)
+        new ActionDisposable(() => _localization.CultureChanged -= handler)
             .DisposeWith(disposable);
 
         Observable.FromEventPattern<LinkClickedEventArgs>(

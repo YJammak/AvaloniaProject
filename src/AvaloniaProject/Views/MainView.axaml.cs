@@ -1,9 +1,9 @@
-﻿using System.Reactive.Disposables;
-using System.Reactive.Disposables.Fluent;
 using AvaloniaProject.ViewModels;
 using AvaloniaProject.ViewModels.Pages;
 using ReactiveUI;
+using ReactiveUI.Primitives.Disposables;
 using Ursa.ReactiveUIExtension;
+using static ReactiveUI.Primitives.LinqExtensions;
 
 namespace AvaloniaProject.Views;
 
@@ -16,7 +16,7 @@ public partial class MainView : ReactiveUrsaView<MainViewModel>
         this.WhenActivated(OnWhenActivated);
     }
 
-    private void OnWhenActivated(CompositeDisposable disposable)
+    private void OnWhenActivated(MultipleDisposable disposable)
     {
         this.OneWayBind(
                 ViewModel,

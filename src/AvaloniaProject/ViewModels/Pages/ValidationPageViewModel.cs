@@ -1,13 +1,13 @@
 using System;
 using System.Linq;
-using System.Reactive.Disposables;
-using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using ReactiveUI;
+using ReactiveUI.Primitives.Disposables;
 using ReactiveUI.SourceGenerators;
 using ReactiveUI.Validation.Extensions;
+using static ReactiveUI.Primitives.LinqExtensions;
 
 namespace AvaloniaProject.ViewModels.Pages;
 
@@ -111,7 +111,7 @@ public partial class ValidationPageViewModel : PageViewModel
             Localization["Validation_ConfirmPassword_Error"]);
     }
 
-    protected override async Task OnWhenActivatedAsync(CompositeDisposable disposable)
+    protected override async Task OnWhenActivatedAsync(MultipleDisposable disposable)
     {
         await base.OnWhenActivatedAsync(disposable);
 
