@@ -1,5 +1,5 @@
 using AvaloniaProject.ViewModels.Pages;
-using Ursa.ReactiveUIExtension;
+using AvaloniaProject.Views;
 
 namespace AvaloniaProject.Views.Pages;
 

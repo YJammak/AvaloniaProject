@@ -1,4 +1,4 @@
-<u:ReactiveUrsaView
+<ap:ReactiveUrsaView
     x:Class="AvaloniaProject.Views.Pages.HomePageView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -42,4 +42,4 @@
             </md:MarkdownRenderer.Styles>
         </md:MarkdownRenderer>
     </ScrollViewer>
-</u:ReactiveUrsaView>
+</ap:ReactiveUrsaView>

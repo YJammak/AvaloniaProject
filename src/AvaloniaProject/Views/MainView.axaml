@@ -1,4 +1,4 @@
-﻿<u:ReactiveUrsaView
+﻿<ap:ReactiveUrsaView
     x:Class="AvaloniaProject.Views.MainView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -76,4 +76,4 @@
                 VerticalAlignment="Stretch" />
         </Border>
     </Grid>
-</u:ReactiveUrsaView>
+</ap:ReactiveUrsaView>

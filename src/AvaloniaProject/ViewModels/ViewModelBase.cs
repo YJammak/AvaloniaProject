@@ -2,8 +2,6 @@ using System;
 using System.Threading.Tasks;
 using ReactiveUI;
 using ReactiveUI.Primitives.Disposables;
-using ReactiveUI.Validation.Abstractions;
-using ReactiveUI.Validation.Contexts;
 using Splat;
 
 namespace AvaloniaProject.ViewModels;
@@ -11,7 +9,7 @@ namespace AvaloniaProject.ViewModels;
 public abstract class ViewModelBase :
     ReactiveObject,
     IActivatableViewModel,
-    IValidatableViewModel,
+    IEnableLogger,
     IDisposable
 {
     protected ViewModelBase()
@@ -32,10 +30,7 @@ public abstract class ViewModelBase :
     public virtual void Dispose()
     {
         Activator.Dispose();
-        ValidationContext.Dispose();
     }
-
-    public IValidationContext ValidationContext { get; } = new ValidationContext();
 
     protected virtual Task OnWhenActivatedAsync(MultipleDisposable disposable)
     {

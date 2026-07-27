@@ -8,7 +8,6 @@ using ReactiveUI;
 using ReactiveUI.Primitives.Disposables;
 using Splat;
 using Ursa.Controls;
-using Ursa.ReactiveUIExtension;
 using static ReactiveUI.Primitives.LinqExtensions;
 
 namespace AvaloniaProject.Views;

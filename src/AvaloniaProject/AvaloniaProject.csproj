@@ -36,7 +36,6 @@
         <!-- DynamicData: explicit reference required since ReactiveUI 24.0.0 no longer bundles it -->
         <PackageReference Include="DynamicData" Version="9.4.33" />
         <PackageReference Include="Irihi.Ursa" Version="2.1.0" />
-        <PackageReference Include="Irihi.Ursa.ReactiveUIExtension" Version="2.0.0" />
         <PackageReference Include="Irihi.Ursa.Themes.Semi" Version="2.1.0" />
         <PackageReference Include="LiveMarkdown.Avalonia" Version="2.2.2" />
         <PackageReference Include="Optris.Icons.Avalonia.MaterialDesign" Version="12.0.7" />
@@ -46,7 +45,6 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="ReactiveUI.Validation" Version="7.1.0" />
         <PackageReference Include="Semi.Avalonia" Version="12.1.0" />
         <PackageReference Include="Semi.Avalonia.AvaloniaEdit" Version="12.0.0" />
         <PackageReference Include="Semi.Avalonia.DataGrid" Version="12.1.0" />

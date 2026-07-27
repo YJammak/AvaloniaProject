@@ -1,4 +1,4 @@
-<u:ReactiveUrsaWindow
+<ap:ReactiveUrsaWindow
     x:Class="AvaloniaProject.Views.MainWindow"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -17,7 +17,7 @@
     WindowStartupLocation="CenterScreen"
     Icon="/Assets/logo.ico"
     mc:Ignorable="d">
-    <u:ReactiveUrsaWindow.TitleBarContent>
+    <ap:ReactiveUrsaWindow.TitleBarContent>
         <Grid>
             <StackPanel
                 Margin="15,5,0,0"
@@ -73,7 +73,7 @@
                     Theme="{DynamicResource BorderlessIconButton}" />
             </StackPanel>
         </Grid>
-    </u:ReactiveUrsaWindow.TitleBarContent>
+    </ap:ReactiveUrsaWindow.TitleBarContent>
 
     <u:LoadingContainer
         x:Name="LoadingContainer"
@@ -87,4 +87,4 @@
         </Grid>
     </u:LoadingContainer>
 
-</u:ReactiveUrsaWindow>
+</ap:ReactiveUrsaWindow>

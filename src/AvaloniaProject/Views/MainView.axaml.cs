@@ -2,7 +2,6 @@ using AvaloniaProject.ViewModels;
 using AvaloniaProject.ViewModels.Pages;
 using ReactiveUI;
 using ReactiveUI.Primitives.Disposables;
-using Ursa.ReactiveUIExtension;
 using static ReactiveUI.Primitives.LinqExtensions;
 
 namespace AvaloniaProject.Views;

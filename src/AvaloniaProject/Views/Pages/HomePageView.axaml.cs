@@ -12,7 +12,6 @@ using LiveMarkdown.Avalonia;
 using ReactiveUI;
 using ReactiveUI.Primitives.Disposables;
 using Splat;
-using Ursa.ReactiveUIExtension;
 using static ReactiveUI.Primitives.LinqExtensions;
 
 namespace AvaloniaProject.Views.Pages;
@@ -47,7 +46,7 @@ public partial class HomePageView : ReactiveUrsaView<HomePageViewModel>
                 h => MarkdownRenderer.LinkClick += h,
                 h => MarkdownRenderer.LinkClick -= h)
             .ObserveOn(RxSchedulers.MainThreadScheduler)
-            .Do(args =>
+            .Subscribe(args =>
             {
                 var uri = args.EventArgs.HRef;
                 if (uri == null)
@@ -59,7 +58,6 @@ public partial class HomePageView : ReactiveUrsaView<HomePageViewModel>
                         UseShellExecute = true
                     });
             })
-            .Subscribe()
             .DisposeWith(disposable);
     }
 
