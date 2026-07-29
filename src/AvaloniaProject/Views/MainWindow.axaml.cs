@@ -5,10 +5,10 @@ using Avalonia.Interactivity;
 using AvaloniaProject.Services;
 using AvaloniaProject.ViewModels;
 using ReactiveUI;
+using ReactiveUI.Primitives;
 using ReactiveUI.Primitives.Disposables;
 using Splat;
 using Ursa.Controls;
-using static ReactiveUI.Primitives.LinqExtensions;
 
 namespace AvaloniaProject.Views;
 
@@ -30,10 +30,8 @@ public partial class MainWindow : ReactiveUrsaWindow<MainWindowViewModel>
 
     private void OnWhenActivated(MultipleDisposable disposable)
     {
-        this.OneWayBind(
-                ViewModel,
-                vm => vm.MainView,
-                v => v.ViewModelViewHost.ViewModel)
+        this.WhenAnyValue(x => x.ViewModel!.MainView)
+            .Subscribe(vm => ViewModelViewHost.ViewModel = vm)
             .DisposeWith(disposable);
 
         EventHandler handler = (_, _) =>

@@ -224,3 +224,24 @@ Observable.FromEventPattern(
 - **No unit test project** — ViewModels depend on interfaces (`ILocalizationService`, `IPageViewModel`), so tests are possible; just not yet added
 - **Empty Models/ folder** — declared in csproj and AssemblyInfo but unused; safe to populate or remove
 - **Page registration requires two changes** — `PageExtensions` (DI) + `ViewLocator` (View mapping); see "Adding a New Page" above
+
+## Code Quality
+
+After making code changes, always run Rider's lint check to catch IDE warnings:
+
+```bash
+# Use the rider MCP tool to lint modified files
+mcp__rider__lint_files(files: [list of changed .cs files], rootFolder: "D:/C#/AvaloniaProject/src")
+```
+
+### Fix all warnings found, using these patterns:
+
+1. **Unused usings** — remove immediately
+2. **`#pragma` suppression** — prefer actual fixes over suppression. Only suppress unavoidable framework mismatches (e.g., ReactiveUI `OneWayBind`/`Bind` nullability vs Avalonia's `object?` properties like `SelectedItem`, `ViewModelViewHost.ViewModel`)
+3. **`SubscribeSafe` with empty `_ => { }` error handler** — use `Subscribe` from `ReactiveUI.Primitives` instead (add `using ReactiveUI.Primitives;`). Keep `SubscribeSafe` only when the error handler does something meaningful (e.g., NLog logging)
+4. **Redundant interfaces/lambda types** — remove them
+5. **Uninitialized `[Reactive]` properties** — add initial value
+6. **Unused fields** — eliminate or capture directly in closure
+7. **ReactiveUrsaBase generic XAML warnings** — these are by design (need generic base for typed `IViewFor<T>`), suppressed with `#pragma warning disable AVP1002`
+
+### After fixing, re-lint to confirm all warnings are gone (only the 2 architecture-level ReactiveUrsaBase warnings should remain), then run `dotnet build` to verify.

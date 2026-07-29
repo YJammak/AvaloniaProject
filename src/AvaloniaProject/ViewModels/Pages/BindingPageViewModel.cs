@@ -1,7 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using DynamicData;
 using ReactiveUI;
 using ReactiveUI.Primitives.Disposables;
 using ReactiveUI.SourceGenerators;
@@ -25,9 +24,7 @@ public partial class BindingPageViewModel : PageViewModel
     [Reactive]
     public partial string StatusText { get; private set; }
 
-    private ISourceList<string> RecordList { get; }
-    public ReadOnlyObservableCollection<string> Records => _records;
-    private readonly ReadOnlyObservableCollection<string> _records;
+    public ObservableCollection<string> Records { get; }
 
     public ReactiveCommand<RxVoid, RxVoid> IncrementCommand { get; }
     public ReactiveCommand<RxVoid, RxVoid> DecrementCommand { get; }
@@ -40,7 +37,9 @@ public partial class BindingPageViewModel : PageViewModel
         base("Page_Binding", "mdi-link-variant", 1, 16)
     {
         InputText = string.Empty;
+        IsToggled = false;
         StatusText = string.Empty;
+        Records = new ObservableCollection<string>();
 
         IncrementCommand = ReactiveCommand.Create(Increment);
         DecrementCommand = ReactiveCommand.Create(Decrement);
@@ -48,14 +47,6 @@ public partial class BindingPageViewModel : PageViewModel
         AddRecordCommand = ReactiveCommand.Create(AddRecord);
         RemoveRecordCommand = ReactiveCommand.Create(RemoveRecord);
         ResetRecordCommand = ReactiveCommand.Create(ResetRecord);
-
-        RecordList = new SourceList<string>();
-        RecordList
-            .AsObservableList()
-            .Connect()
-            .ObserveOn(RxSchedulers.MainThreadScheduler)
-            .Bind(out _records)
-            .SubscribeSafe(_ => { }, ex => this.Log().Error(ex, "Error binding records list"));
     }
 
     protected override async Task OnWhenActivatedAsync(MultipleDisposable disposable)
@@ -84,7 +75,7 @@ public partial class BindingPageViewModel : PageViewModel
     private void Increment() => Counter++;
     private void Decrement() => Counter--;
     private void Reset() => Counter = 0;
-    private void AddRecord() => RecordList.Insert(0, $"Record {DateTime.Now:HH:mm:ss.fff}");
-    private void RemoveRecord() { if (RecordList.Count > 0) RecordList.RemoveAt(RecordList.Count - 1); }
-    private void ResetRecord() => RecordList.Clear();
+    private void AddRecord() => Records.Insert(0, $"Record {DateTime.Now:HH:mm:ss.fff}");
+    private void RemoveRecord() { if (Records.Count > 0) Records.RemoveAt(Records.Count - 1); }
+    private void ResetRecord() => Records.Clear();
 }

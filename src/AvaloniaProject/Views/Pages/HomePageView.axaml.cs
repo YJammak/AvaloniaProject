@@ -1,7 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Reactive.Linq;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Threading;
@@ -11,6 +9,7 @@ using AvaloniaProject.ViewModels.Pages;
 using LiveMarkdown.Avalonia;
 using ReactiveUI;
 using ReactiveUI.Primitives.Disposables;
+using ReactiveUI.Primitives.Signals;
 using Splat;
 using static ReactiveUI.Primitives.LinqExtensions;
 
@@ -37,27 +36,27 @@ public partial class HomePageView : ReactiveUrsaView<HomePageViewModel>
 
     private void OnWhenActivated(MultipleDisposable disposable)
     {
-        EventHandler handler = (_, _) => UpdateContent();
-        _localization.CultureChanged += handler;
-        new ActionDisposable(() => _localization.CultureChanged -= handler)
+        EventHandler cultureHandler = (_, _) => UpdateContent();
+        _localization.CultureChanged += cultureHandler;
+        new ActionDisposable(() => _localization.CultureChanged -= cultureHandler)
             .DisposeWith(disposable);
 
-        Observable.FromEventPattern<LinkClickedEventArgs>(
+        Signal.FromEventPattern<LinkClickedEventArgs>(
                 h => MarkdownRenderer.LinkClick += h,
                 h => MarkdownRenderer.LinkClick -= h)
-            .ObserveOn(RxSchedulers.MainThreadScheduler)
-            .Subscribe(args =>
+            .SubscribeSafe(args =>
             {
                 var uri = args.EventArgs.HRef;
                 if (uri == null)
                     return;
                 if (uri.Scheme is "http" or "https")
-                    Process.Start(new ProcessStartInfo
+                    _ = Process.Start(new ProcessStartInfo
                     {
                         FileName = uri.ToString(),
                         UseShellExecute = true
                     });
-            })
+            },
+            _ => { })
             .DisposeWith(disposable);
     }
 

@@ -19,12 +19,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <TrimmerRootDescriptor Include="link.xml"/>
+        <TrimmerRootDescriptor Include="link.xml" />
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Models\"/>
-        <AvaloniaResource Include="Assets\**"/>
+        <Folder Include="Models\" />
+        <AvaloniaResource Include="Assets\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -33,8 +33,6 @@
         <PackageReference Include="Avalonia.Fonts.Inter" Version="12.1.0" />
         <PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.3" />
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-        <!-- DynamicData: explicit reference required since ReactiveUI 24.0.0 no longer bundles it -->
-        <PackageReference Include="DynamicData" Version="9.4.33" />
         <PackageReference Include="Irihi.Ursa" Version="2.1.0" />
         <PackageReference Include="Irihi.Ursa.Themes.Semi" Version="2.1.0" />
         <PackageReference Include="LiveMarkdown.Avalonia" Version="2.2.2" />
@@ -59,33 +57,21 @@
 
     <Target Name="RelocateSatelliteAssembliesAfterBuild" AfterTargets="Build">
         <ItemGroup>
-            <SatelliteAssembliesAfterBuild Include="$(TargetDir)**\$(AssemblyName).resources.dll"
-                                           Exclude="$(TargetDir)locales\**\*"/>
+            <SatelliteAssembliesAfterBuild Include="$(TargetDir)**\$(AssemblyName).resources.dll" Exclude="$(TargetDir)locales\**\*" />
         </ItemGroup>
-        <MakeDir Directories="@(SatelliteAssembliesAfterBuild->'$(TargetDir)locales\%(RecursiveDir)')"
-                 Condition="'@(SatelliteAssembliesAfterBuild)' != ''"/>
-        <Copy SourceFiles="@(SatelliteAssembliesAfterBuild)"
-              DestinationFiles="@(SatelliteAssembliesAfterBuild->'$(TargetDir)locales\%(RecursiveDir)%(Filename)%(Extension)')"
-              SkipUnchangedFiles="true"
-              Condition="'@(SatelliteAssembliesAfterBuild)' != ''"/>
-        <Delete Files="@(SatelliteAssembliesAfterBuild)" Condition="'@(SatelliteAssembliesAfterBuild)' != ''"/>
-        <RemoveDir Directories="@(SatelliteAssembliesAfterBuild->'%(RootDir)%(Directory)')"
-                   Condition="'@(SatelliteAssembliesAfterBuild)' != ''"/>
+        <MakeDir Directories="@(SatelliteAssembliesAfterBuild->'$(TargetDir)locales\%(RecursiveDir)')" Condition="'@(SatelliteAssembliesAfterBuild)' != ''" />
+        <Copy SourceFiles="@(SatelliteAssembliesAfterBuild)" DestinationFiles="@(SatelliteAssembliesAfterBuild->'$(TargetDir)locales\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" Condition="'@(SatelliteAssembliesAfterBuild)' != ''" />
+        <Delete Files="@(SatelliteAssembliesAfterBuild)" Condition="'@(SatelliteAssembliesAfterBuild)' != ''" />
+        <RemoveDir Directories="@(SatelliteAssembliesAfterBuild->'%(RootDir)%(Directory)')" Condition="'@(SatelliteAssembliesAfterBuild)' != ''" />
     </Target>
 
     <Target Name="RelocateSatelliteAssembliesAfterPublish" AfterTargets="Publish">
         <ItemGroup>
-            <SatelliteAssembliesAfterPublish Include="$(PublishDir)**\$(AssemblyName).resources.dll"
-                                             Exclude="$(PublishDir)locales\**\*"/>
+            <SatelliteAssembliesAfterPublish Include="$(PublishDir)**\$(AssemblyName).resources.dll" Exclude="$(PublishDir)locales\**\*" />
         </ItemGroup>
-        <MakeDir Directories="@(SatelliteAssembliesAfterPublish->'$(PublishDir)locales\%(RecursiveDir)')"
-                 Condition="'@(SatelliteAssembliesAfterPublish)' != ''"/>
-        <Copy SourceFiles="@(SatelliteAssembliesAfterPublish)"
-              DestinationFiles="@(SatelliteAssembliesAfterPublish->'$(PublishDir)locales\%(RecursiveDir)%(Filename)%(Extension)')"
-              SkipUnchangedFiles="true"
-              Condition="'@(SatelliteAssembliesAfterPublish)' != ''"/>
-        <Delete Files="@(SatelliteAssembliesAfterPublish)" Condition="'@(SatelliteAssembliesAfterPublish)' != ''"/>
-        <RemoveDir Directories="@(SatelliteAssembliesAfterPublish->'%(RootDir)%(Directory)')"
-                   Condition="'@(SatelliteAssembliesAfterPublish)' != ''"/>
+        <MakeDir Directories="@(SatelliteAssembliesAfterPublish->'$(PublishDir)locales\%(RecursiveDir)')" Condition="'@(SatelliteAssembliesAfterPublish)' != ''" />
+        <Copy SourceFiles="@(SatelliteAssembliesAfterPublish)" DestinationFiles="@(SatelliteAssembliesAfterPublish->'$(PublishDir)locales\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" Condition="'@(SatelliteAssembliesAfterPublish)' != ''" />
+        <Delete Files="@(SatelliteAssembliesAfterPublish)" Condition="'@(SatelliteAssembliesAfterPublish)' != ''" />
+        <RemoveDir Directories="@(SatelliteAssembliesAfterPublish->'%(RootDir)%(Directory)')" Condition="'@(SatelliteAssembliesAfterPublish)' != ''" />
     </Target>
 </Project>

@@ -9,12 +9,11 @@ namespace AvaloniaProject.ViewModels;
 public abstract class ViewModelBase :
     ReactiveObject,
     IActivatableViewModel,
-    IEnableLogger,
     IDisposable
 {
     protected ViewModelBase()
     {
-        this.WhenActivated((MultipleDisposable disposable) =>
+        this.WhenActivated(disposable =>
         {
             OnWhenActivatedAsync(disposable)
                 .ContinueWith(t =>

@@ -42,7 +42,8 @@ public class App : Application
             var mainWindowViewModel = Locator.Current.GetService<MainWindowViewModel>()!;
             desktop.MainWindow = new MainWindow
             {
-                DataContext = mainWindowViewModel
+                DataContext = mainWindowViewModel,
+                ViewModel = mainWindowViewModel
             };
         }
 

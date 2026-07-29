@@ -1,7 +1,7 @@
 using AvaloniaProject.ViewModels;
 using ReactiveUI;
+using ReactiveUI.Primitives;
 using ReactiveUI.Primitives.Disposables;
-using static ReactiveUI.Primitives.LinqExtensions;
 
 namespace AvaloniaProject.Views;
 
@@ -16,10 +16,8 @@ public partial class AboutView : ReactiveUrsaView<AboutViewModel>
 
     private void OnWhenActivated(MultipleDisposable disposable)
     {
-        this.OneWayBind(
-                ViewModel,
-                vm => vm.Version,
-                v => v.AppVersionTextBlock.Text)
+        this.WhenAnyValue(x => x.ViewModel!.Version)
+            .Subscribe(v => AppVersionTextBlock.Text = v)
             .DisposeWith(disposable);
     }
 }

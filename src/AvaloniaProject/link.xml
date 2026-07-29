@@ -5,6 +5,7 @@
     <assembly fullname="AvaloniaProject"/>
     <assembly fullname="MicroCom.Runtime"/>
     <assembly fullname="ReactiveUI"/>
+    <assembly fullname="ReactiveUI.Primitives"/>
     <assembly fullname="System.Linq.Expressions"/>
     <assembly fullname="Semi.Avalonia"/>
     <assembly fullname="Semi.Avalonia.AvaloniaEdit"/>

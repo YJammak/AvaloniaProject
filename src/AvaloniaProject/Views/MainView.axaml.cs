@@ -1,8 +1,8 @@
 using AvaloniaProject.ViewModels;
 using AvaloniaProject.ViewModels.Pages;
 using ReactiveUI;
+using ReactiveUI.Primitives;
 using ReactiveUI.Primitives.Disposables;
-using static ReactiveUI.Primitives.LinqExtensions;
 
 namespace AvaloniaProject.Views;
 
@@ -17,12 +17,13 @@ public partial class MainView : ReactiveUrsaView<MainViewModel>
 
     private void OnWhenActivated(MultipleDisposable disposable)
     {
-        this.OneWayBind(
-                ViewModel,
-                vm => vm.Pages,
-                v => v.NavMenu.ItemsSource)
+        this.WhenAnyValue(x => x.ViewModel!.Pages)
+            .Subscribe(pages => NavMenu.ItemsSource = pages)
             .DisposeWith(disposable);
 
+        // Bind and OneWayBind below trigger CS8714 because Avalonia framework properties
+        // (SelectedItem, ViewModelViewHost.ViewModel) are typed as nullable.
+#pragma warning disable CS8714
         this.Bind(
                 ViewModel,
                 vm => vm.SelectedPage,
@@ -36,5 +37,6 @@ public partial class MainView : ReactiveUrsaView<MainViewModel>
                 vm => vm.SelectedPage,
                 v => v.ViewModelViewHost.ViewModel)
             .DisposeWith(disposable);
+#pragma warning restore CS8714
     }
 }

@@ -5,6 +5,8 @@ using AvaloniaProject.Services;
 using AvaloniaProject.Utils;
 using AvaloniaProject.ViewModels;
 using AvaloniaProject.ViewModels.Pages;
+using AvaloniaProject.Views;
+using AvaloniaProject.Views.Pages;
 using NLog;
 using NLog.Targets;
 using Optris.Icons.Avalonia;
@@ -41,8 +43,18 @@ internal sealed class Program
             .UsePlatformDetect()
             .WithInterFont()
             .LogToTrace()
-            .UseReactiveUI(_ => { })
-            .RegisterReactiveUIViewsFromEntryAssembly()
+            .UseReactiveUI(builder =>
+            {
+                builder.ConfigureViewLocator(locator =>
+                {
+                    locator.Map<MainWindowViewModel, MainWindow>(() => new MainWindow());
+                    locator.Map<MainViewModel, MainView>(() => new MainView());
+                    locator.Map<AboutViewModel, AboutView>(() => new AboutView());
+                    locator.Map<HomePageViewModel, HomePageView>(() => new HomePageView());
+                    locator.Map<BindingPageViewModel, BindingPageView>(() => new BindingPageView());
+                    locator.Map<ValidationPageViewModel, ValidationPageView>(() => new ValidationPageView());
+                });
+            })
             .UsePages();
     }
 
@@ -53,10 +65,10 @@ internal sealed class Program
         Locator.CurrentMutable.RegisterConstant<ILocalizationService>(localizationService);
 
         // ViewModels — resolved via Splat, dependencies injected via constructor
-        Locator.CurrentMutable.RegisterLazySingleton<MainViewModel>(() =>
+        Locator.CurrentMutable.RegisterLazySingleton(() =>
             new MainViewModel(Locator.Current.GetServices<IPageViewModel>()));
 
-        Locator.CurrentMutable.RegisterLazySingleton<MainWindowViewModel>(() =>
+        Locator.CurrentMutable.RegisterLazySingleton(() =>
             new MainWindowViewModel(
                 Locator.Current.GetService<MainViewModel>()
                 ?? throw new InvalidOperationException(
