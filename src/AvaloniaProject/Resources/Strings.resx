@@ -139,7 +139,7 @@
     <data name="HomePage_Content" xml:space="preserve">
         <value># Welcome to AvaloniaProject!
 
-A modern Avalonia UI desktop application demonstrating MVVM architecture, AOT compilation, and real-time internationalization.
+A modern Avalonia UI desktop application demonstrating MVVM architecture, AOT compilation, and real-time internationalization — fully adapted to **ReactiveUI 24** with the **ReactiveUI.Primitives** engine.
 
 ---
 
@@ -147,21 +147,24 @@ A modern Avalonia UI desktop application demonstrating MVVM architecture, AOT co
 
 | Category | Library |
 |---|---|
-| UI Framework | [Avalonia 12.0](https://avaloniaui.net/) |
-| MVVM | [ReactiveUI](https://reactiveui.net/) + Source Generators |
-| DI | Splat (constructor injection) |
+| UI Framework | [Avalonia 12.1](https://avaloniaui.net/) |
+| MVVM | [ReactiveUI 24](https://reactiveui.net/) + ReactiveUI.Primitives |
+| DI | Splat 20.2 (constructor injection) |
 | Theme | [Semi.Avalonia](https://github.com/irihitech/Semi.Avalonia) + [Ursa](https://github.com/irihitech/Ursa.Avalonia) |
 | Icons | [Optris Material Design](https://github.com/Optris/Optris.Icons.Avalonia) |
 | Markdown | [LiveMarkdown.Avalonia](https://github.com/giacomelli/LiveMarkdown.Avalonia) |
 | Logging | NLog via Splat.NLog |
-| Runtime | .NET 10 with AOT |
+| Runtime | .NET 10 with AOT (`PublishAot`) |
 
 ---
 
 ## Architecture Highlights
 
+- **ReactiveUI 24 Primitives** — `RxVoid`, `MultipleDisposable`, `Signal.FromEventPattern`, zero System.Reactive
+- **ConfigureViewLocator + Map&lt;T,T&gt;()** — ReactiveUI 24 native view registration, AOT-safe
+- **Manual ReactiveCommands** — typed `ReactiveCommand&lt;RxVoid, RxVoid&gt;`
+- **ObservableCollection&lt;T&gt;** — .NET native collection, no DynamicData dependency
 - **Constructor injection** — all dependencies in composition root (`Program.cs`)
-- **AOT-safe ViewLocator** — type dictionary instead of reflection
 - **Compiled bindings** — AXAML `x:DataType` with compile-time validation
 - **Interface-based** — `ILocalizationService`, `IPageViewModel` for testability
 - **Activation lifecycle** — `WhenActivated` / `DisposeWith` for event cleanup
@@ -174,9 +177,10 @@ A modern Avalonia UI desktop application demonstrating MVVM architecture, AOT co
 Use the **left sidebar** to navigate between pages:
 
 - **Home** — This page, rendered with LiveMarkdown
-- **Binding** — Interactive ReactiveUI binding demonstrations
+- **Binding** — ReactiveUI binding demos: two-way, command, collection, boolean
+- **Validation** — Manual form validation with per-field error sync
 
-Use the **title bar** controls to switch languages or toggle the theme.</value>
+Use the **title bar** controls to switch languages (EN / 中文) or toggle the theme.</value>
     </data>
     <data name="MainWindow_LanguageTooltip" xml:space="preserve">
         <value>English</value>

@@ -139,7 +139,7 @@
     <data name="HomePage_Content" xml:space="preserve">
         <value># 欢迎使用 AvaloniaProject！
 
-一个现代化的 Avalonia UI 桌面应用，展示 MVVM 架构、AOT 编译和实时国际化。
+一个现代化的 Avalonia UI 桌面应用，展示 MVVM 架构、AOT 编译和实时国际化——完全适配 **ReactiveUI 24** 与 **ReactiveUI.Primitives** 引擎。
 
 ---
 
@@ -147,21 +147,24 @@
 
 | 类别 | 库 |
 |---|---|
-| UI 框架 | [Avalonia 12.0](https://avaloniaui.net/) |
-| MVVM | [ReactiveUI](https://reactiveui.net/) + 源码生成器 |
-| 依赖注入 | Splat（构造器注入） |
+| UI 框架 | [Avalonia 12.1](https://avaloniaui.net/) |
+| MVVM | [ReactiveUI 24](https://reactiveui.net/) + ReactiveUI.Primitives |
+| 依赖注入 | Splat 20.2（构造器注入） |
 | 主题 | [Semi.Avalonia](https://github.com/irihitech/Semi.Avalonia) + [Ursa](https://github.com/irihitech/Ursa.Avalonia) |
 | 图标 | [Optris Material Design](https://github.com/Optris/Optris.Icons.Avalonia) |
 | Markdown | [LiveMarkdown.Avalonia](https://github.com/giacomelli/LiveMarkdown.Avalonia) |
 | 日志 | NLog 通过 Splat.NLog |
-| 运行时 | .NET 10 + AOT |
+| 运行时 | .NET 10 + AOT (`PublishAot`) |
 
 ---
 
 ## 架构亮点
 
+- **ReactiveUI 24 Primitives** — `RxVoid`、`MultipleDisposable`、`Signal.FromEventPattern`，零 System.Reactive 依赖
+- **ConfigureViewLocator + Map&lt;T,T&gt;()** — ReactiveUI 24 原生视图注册，AOT 安全
+- **手动 ReactiveCommand** — `ReactiveCommand&lt;RxVoid, RxVoid&gt;` 显式类型
+- **ObservableCollection&lt;T&gt;** — .NET 原生集合，移除 DynamicData 依赖
 - **构造器注入** — 所有依赖在组合根（`Program.cs`）统一管理
-- **AOT 安全的 ViewLocator** — 类型字典替代反射
 - **编译绑定** — AXAML `x:DataType` 编译期校验
 - **基于接口** — `ILocalizationService`、`IPageViewModel` 可测试
 - **激活生命周期** — `WhenActivated` / `DisposeWith` 管理事件清理
@@ -174,7 +177,8 @@
 使用**左侧导航栏**切换页面：
 
 - **主页** — 当前页面，由 LiveMarkdown 渲染
-- **绑定** — 交互式 ReactiveUI 绑定演示
+- **绑定** — 交互式 ReactiveUI 绑定演示：双向、命令、集合、布尔
+- **验证** — 手动表单验证，逐字段错误同步
 
 使用**标题栏**控件切换语言或主题。</value>
     </data>
