@@ -25,7 +25,13 @@ jobs:
           dotnet publish src/AvaloniaProject/AvaloniaProject.csproj `
             -c Release `
             -r win-x64 `
+            -p:DebugType=None `
+            -p:DebugSymbols=false `
             --output publish/win-x64
+
+      - name: Cleanup publish output
+        run: |
+          Get-ChildItem -Path publish/win-x64 -Filter *.pdb -Recurse -File | Remove-Item -Force
 
       - name: Zip output
         run: Compress-Archive -Path publish/win-x64/* -DestinationPath AvaloniaProject-win-x64.zip
