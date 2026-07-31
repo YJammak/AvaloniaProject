@@ -40,7 +40,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: AvaloniaProject-win-x64
-          path: AvaloniaProject-win-x64.zip
+          path: publish/win-x64/**
           retention-days: 30
 
       - name: Upload to Release
